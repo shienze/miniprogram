@@ -1,0 +1,17 @@
+<!--pages/user/apply-track.wxml-->
+<view class="container">
+  <view class="track-list">
+    <view class="track-item" wx:for="{{applies}}" wx:key="id" bindtap="toDetail" data-id="{{item.jobId}}">
+      <view class="item-header">
+        <text class="job-title">{{item.title}}</text>
+        <text class="status {{item.statusClass}}">{{item.status}}</text>
+      </view>
+      <view class="item-info">
+        <text>公司：{{item.company}}</text>
+        <text>投递时间：{{item.applyTime}}</text>
+      </view>
+      <button class="chat-btn" bindtap="startChat" data-id="{{item.jobId}}">聊天</button>
+    </view>
+    <view wx:if="{{applies.length === 0}}" class="empty">暂无投递记录</view>
+  </view>
+</view>

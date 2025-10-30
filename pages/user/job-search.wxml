@@ -1,0 +1,69 @@
+<!--pages/user/job-search.wxml-->
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索职位/公司" bindinput="inputSearch" value="{{searchKeyword}}" />
+    <button class="search-btn" bindtap="doSearch">搜索</button>
+  </view>
+  
+  <!-- 筛选区 -->
+  <view class="filter-bar">
+    <button class="filter-btn" bindtap="openFilter">筛选</button>
+    <picker bindchange="changeSort" range="{{sortOptions}}" value="{{sortIndex}}">
+      <view class="sort-select">排序：{{sortOptions[sortIndex]}}</view>
+    </picker>
+  </view>
+  
+  <!-- 职位列表 -->
+  <scroll-view class="job-list" scroll-y="true" bindscrolltolower="loadMore" enable-pull-down-refresh="true" bindpulldownrefresh="onPullDownRefresh">
+    <view class="job-item" wx:for="{{jobs}}" wx:key="id" bindtap="toJobDetail" data-id="{{item.id}}">
+      <view class="job-title">{{item.title}}</view>
+      <view class="job-info">
+        <text>公司：{{item.company}}</text>
+        <text>薪资：{{item.salary}}</text>
+        <text>地点：{{item.location}}</text>
+      </view>
+      <view class="job-tags">
+        <text class="tag" wx:for="{{item.tags}}" wx:key="index">{{item}}</text>
+      </view>
+    </view>
+    <view wx:if="{{loadingMore}}" class="loading">加载中...</view>
+  </scroll-view>
+  
+  <!-- 筛选弹窗 (modal) -->
+  <modal hidden="{{!showFilter}}" bindconfirm="applyFilter" bindcancel="closeFilter" title="筛选条件">
+    <view class="filter-content">
+      <view class="filter-item">
+        <text>学校</text>
+        <picker bindchange="changeSchool" range="{{schoolOptions}}" value="{{schoolIndex}}">
+          <view>{{schoolOptions[schoolIndex]}}</view>
+        </picker>
+      </view>
+      <view class="filter-item">
+        <text>专业</text>
+        <picker bindchange="changeMajor" range="{{majorOptions}}" value="{{majorIndex}}">
+          <view>{{majorOptions[majorIndex]}}</view>
+        </picker>
+      </view>
+      <view class="filter-item">
+        <text>技能</text>
+        <checkbox-group bindchange="changeSkills">
+          <label wx:for="{{skillOptions}}" wx:key="value">
+            <checkbox value="{{item.value}}" checked="{{item.checked}}" /> {{item.name}}
+          </label>
+        </checkbox-group>
+      </view>
+      <view class="filter-item">
+        <text>地点</text>
+        <picker bindchange="changeLocation" range="{{locationOptions}}" value="{{locationIndex}}">
+          <view>{{locationOptions[locationIndex]}}</view>
+        </picker>
+      </view>
+      <view class="filter-item">
+        <text>薪资范围</text>
+        <slider block-size="16" min="0" max="50" step="5" value="{{salaryMin}}" bindchange="changeSalaryMin" show-value />
+        <slider block-size="16" min="0" max="50" step="5" value="{{salaryMax}}" bindchange="changeSalaryMax" show-value />
+      </view>
+    </view>
+  </modal>
+</view>

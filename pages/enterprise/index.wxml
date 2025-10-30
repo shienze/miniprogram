@@ -1,0 +1,32 @@
+<!--pages/enterprise/index.wxml-->
+<view class="container">
+  <!-- 招聘概览 -->
+  <view class="overview">
+    <text class="section-title">招聘概览</text>
+    <view class="stats">
+      <view class="stat-item">
+        <text class="stat-value">{{stats.applyCount}}</text>
+        <text class="stat-label">投递量</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{stats.viewCount}}</text>
+        <text class="stat-label">查看率</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 职位列表 -->
+  <view class="job-section">
+    <text class="section-title">职位管理</text>
+    <scroll-view class="job-list" scroll-y="true" bindscrolltolower="loadMore">
+      <view class="job-item" wx:for="{{jobs}}" wx:key="id" bindtap="toJobEdit" data-id="{{item.id}}">
+        <text class="job-title">{{item.title}}</text>
+        <text class="job-status {{item.status === '已发布' ? 'active' : 'inactive'}}">{{item.status}}</text>
+        <text class="job-info">投递: {{item.applies}} | 查看: {{item.views}}</text>
+      </view>
+      <view wx:if="{{loadingMore}}" class="loading">加载中...</view>
+    </scroll-view>
+  </view>
+  
+  <button class="fab" bindtap="toPublishJob">+ 发布职位</button>
+</view>

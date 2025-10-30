@@ -1,0 +1,43 @@
+<!--pages/user/post-detail.wxml-->
+<view class="container">
+  <view class="post-content">
+    <view class="post-header">
+      <image class="author-avatar" src="{{post.authorAvatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+      <view class="author-info">
+        <text class="author-name">{{post.author}}</text>
+        <text class="post-time">{{post.time}}</text>
+      </view>
+    </view>
+    <text class="post-title">{{post.title}}</text>
+    <rich-text class="post-body" nodes="{{post.content}}" />
+    <view class="post-tags">
+      <text class="tag" wx:for="{{post.tags}}" wx:key="index">{{item}}</text>
+    </view>
+    <view class="post-actions">
+      <button class="action-btn" bindtap="toggleLike">{{ liked ? '已点赞' : '点赞' }} ({{post.likes}})</button>
+      <text class="action">评论 ({{post.comments}})</text>
+    </view>
+  </view>
+  
+  <view class="comment-section">
+    <text class="section-title">评论区</text>
+    <view class="comment-list">
+      <view class="comment-item" wx:for="{{comments}}" wx:key="id">
+        <image class="comment-avatar" src="{{item.avatar || '/images/default-avatar.png'}}" />
+        <view class="comment-info">
+          <text class="comment-author">{{item.author}}</text>
+          <text class="comment-text">{{item.text}}</text>
+          <text class="comment-time">{{item.time}}</text>
+        </view>
+      </view>
+      <view wx:if="{{comments.length === 0}}" class="empty">暂无评论</view>
+    </view>
+    
+    <view class="comment-input">
+      <input class="input" placeholder="输入评论..." bindinput="inputComment" value="{{newComment}}" />
+      <button class="submit-btn" bindtap="submitComment">发送</button>
+    </view>
+  </view>
+  
+  <loading hidden="{{!loading}}">加载中...</loading>
+</view>

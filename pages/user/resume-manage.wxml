@@ -1,0 +1,42 @@
+<!--pages/user/resume-manage.wxml-->
+<view class="container">
+  <form bindsubmit="saveResume">
+    <view class="section">
+      <text class="section-title">基本信息</text>
+      <input class="input" name="name" placeholder="姓名" value="{{resume.name}}" />
+      <input class="input" name="phone" placeholder="手机号" value="{{resume.phone}}" />
+      <input class="input" name="email" placeholder="邮箱" value="{{resume.email}}" />
+    </view>
+    
+    <view class="section">
+      <text class="section-title">教育经历</text>
+      <textarea class="textarea" name="education" placeholder="学校、专业、时间等" value="{{resume.education}}" />
+    </view>
+    
+    <view class="section">
+      <text class="section-title">工作经验</text>
+      <textarea class="textarea" name="experience" placeholder="公司、职位、职责等" value="{{resume.experience}}" />
+    </view>
+    
+    <view class="section">
+      <text class="section-title">技能</text>
+      <textarea class="textarea" name="skills" placeholder="技能列表" value="{{resume.skills}}" />
+    </view>
+    
+    <view class="upload-section">
+      <text class="section-title">上传附件（PDF/Word）</text>
+      <button class="upload-btn" bindtap="uploadAttachment">选择文件</button>
+      <text wx:if="{{attachmentPath}}" class="upload-status">已选择：{{attachmentName}}</text>
+    </view>
+    
+    <button class="action-btn" bindtap="aiOptimize">AI优化</button>
+    <button class="submit-btn" formType="submit">保存并预览</button>
+  </form>
+  
+  <view wx:if="{{aiSuggestion}}" class="suggestion">
+    <text class="section-title">AI优化建议</text>
+    <text>{{aiSuggestion}}</text>
+  </view>
+  
+  <loading hidden="{{!loading}}">保存中...</loading>
+</view>

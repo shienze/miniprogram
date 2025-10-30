@@ -1,0 +1,103 @@
+/* pages/user/index.wxss */
+.container {
+  background: linear-gradient(to bottom, #4A90E2 0%, #FFFFFF 30%); /* 渐变背景 */
+  padding: 20rpx;
+  min-height: 100vh;
+}
+
+.banner {
+  height: 300rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 20rpx;
+}
+
+.banner image {
+  width: 100%;
+  height: 100%;
+}
+
+.search-bar {
+  display: flex;
+  background: #FFFFFF;
+  border-radius: 50rpx;
+  padding: 10rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  padding: 10rpx 20rpx;
+  font-size: 28rpx;
+}
+
+.search-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  width: 150rpx;
+}
+
+.section-title {
+  font-size: 36rpx;
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.job-list {
+  height: 800rpx; /* 适应屏幕 */
+}
+
+.job-item {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.job-item:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.job-title {
+  font-size: 32rpx;
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.job-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+}
+
+.job-tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #EAF4FF;
+  color: #4A90E2;
+  padding: 5rpx 10rpx;
+  border-radius: 10rpx;
+  font-size: 22rpx;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.loading {
+  text-align: center;
+  color: #999999;
+  padding: 20rpx;
+}

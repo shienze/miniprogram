@@ -1,0 +1,77 @@
+/* pages/user/apply-track.wxss */
+.container {
+  background: #FFFFFF;
+  padding: 20rpx;
+  min-height: 100vh;
+}
+
+.track-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.track-item {
+  background: #F0F0F0;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+
+.job-title {
+  font-size: 32rpx;
+  color: #333333;
+  font-weight: bold;
+}
+
+.status {
+  font-size: 28rpx;
+  padding: 5rpx 10rpx;
+  border-radius: 10rpx;
+}
+
+.status.pending {
+  background: #FFEAA7;
+  color: #D97706;
+}
+
+.status.viewed {
+  background: #BFDBFE;
+  color: #2563EB;
+}
+
+.status.interview {
+  background: #BBF7D0;
+  color: #15803D;
+}
+
+.status.rejected {
+  background: #FECACA;
+  color: #B91C1C;
+}
+
+.item-info {
+  font-size: 24rpx;
+  color: #666666;
+  margin-bottom: 20rpx;
+}
+
+.chat-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+}
+
+.empty {
+  text-align: center;
+  color: #999999;
+  font-size: 28rpx;
+  padding: 40rpx;
+}

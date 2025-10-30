@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "职位搜索",
+  "navigationBarBackgroundColor": "#4A90E2",
+  "backgroundColor": "#FFFFFF",
+  "enablePullDownRefresh": true
+}

@@ -1,0 +1,143 @@
+/* pages/user/community.wxss */
+.container {
+  background: #F8F9FA;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+.search-bar {
+  display: flex;
+  background: #FFFFFF;
+  border-radius: 50rpx;
+  padding: 10rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  padding: 10rpx 20rpx;
+  font-size: 28rpx;
+}
+
+.search-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  width: 150rpx;
+}
+
+.post-list {
+  height: calc(100vh - 160rpx);
+}
+
+.post-item {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.post-item:hover {
+  transform: scale(1.02);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.author-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.author-info {
+  flex: 1;
+}
+
+.author-name {
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: bold;
+}
+
+.post-time {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.post-title {
+  font-size: 32rpx;
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.post-preview {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10rpx;
+}
+
+.tag {
+  background: #EAF4FF;
+  color: #4A90E2;
+  padding: 5rpx 10rpx;
+  border-radius: 10rpx;
+  font-size: 22rpx;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.loading {
+  text-align: center;
+  color: #999999;
+  padding: 20rpx;
+}
+
+.empty {
+  text-align: center;
+  color: #999999;
+  font-size: 28rpx;
+  padding: 40rpx;
+}
+
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 100rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #4A90E2;
+  color: #FFFFFF;
+  font-size: 48rpx;
+  border-radius: 50%;
+  box-shadow: 0 8rpx 16rpx rgba(74, 144, 226, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

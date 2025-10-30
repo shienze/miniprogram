@@ -1,0 +1,17 @@
+<!--pages/user/message.wxml-->
+<view class="container">
+  <scroll-view class="chat-list" scroll-y="true" enable-pull-down-refresh="true" bindpulldownrefresh="onPullDownRefresh">
+    <view class="chat-item" wx:for="{{chats}}" wx:key="id" bindtap="toChat" data-id="{{item.id}}">
+      <image class="avatar" src="{{item.avatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+      <view class="chat-info">
+        <text class="name">{{item.name}}</text>
+        <text class="preview">{{item.lastMessage}}</text>
+      </view>
+      <view class="chat-meta">
+        <text class="time">{{item.time}}</text>
+        <view wx:if="{{item.unread > 0}}" class="unread-badge">{{item.unread}}</view>
+      </view>
+    </view>
+    <view wx:if="{{chats.length === 0}}" class="empty">暂无消息</view>
+  </scroll-view>
+</view>

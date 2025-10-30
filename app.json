@@ -1,0 +1,76 @@
+{
+  "pages": [
+    "pages/common/welcome",
+    "pages/common/login",
+    "pages/common/register",
+    "pages/common/switch-role",
+    "pages/user/index",
+    "pages/user/community",
+    "pages/user/post-detail",
+    "pages/user/post-create",
+    "pages/user/message",
+    "pages/user/chat",
+    "pages/user/profile",
+    "pages/user/job-search",
+    "pages/user/job-detail",
+    "pages/user/resume-manage",
+    "pages/user/resume-preview",
+    "pages/user/apply-track",
+    "pages/user/profile-edit",
+    "pages/enterprise/index",
+    "pages/enterprise/job-publish",
+    "pages/enterprise/job-edit",
+    "pages/enterprise/resume-filter",
+    "(pages/enterprise/resume-detail"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "style": "v2",
+  "renderer": "webview",
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "defaultContentBox": true,
+      "disableABTest": true,
+      "sdkVersionBegin": "3.0.0",
+      "sdkVersionEnd": "15.255.255"
+    }
+  },
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#4A90E2",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/user/index",
+        "text": "首页",
+        "iconPath": "/images/icons/home.png",
+        "selectedIconPath": "/images/icons/home-selected.png"
+      },
+      {
+        "pagePath": "pages/user/community",
+        "text": "社区",
+        "iconPath": "/images/icons/community.png",
+        "selectedIconPath": "/images/icons/community-selected.png"
+      },
+      {
+        "pagePath": "pages/user/message",
+        "text": "消息",
+        "iconPath": "/images/icons/message.png",
+        "selectedIconPath": "/images/icons/message-selected.png"
+      },
+      {
+        "pagePath": "pages/user/profile",
+        "text": "我的",
+        "iconPath": "/images/icons/profile.png",
+        "selectedIconPath": "/images/icons/profile-selected.png"
+      }
+    ]
+  }
+}

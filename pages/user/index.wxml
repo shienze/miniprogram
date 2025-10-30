@@ -1,0 +1,34 @@
+<!--pages/user/index.wxml-->
+<view class="container">
+  <!-- 轮播banner -->
+  <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="500">
+    <swiper-item wx:for="{{banners}}" wx:key="index">
+      <image src="{{item.url}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+  
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索职位/公司" bindinput="inputSearch" value="{{searchKeyword}}" />
+    <button class="search-btn" bindtap="doSearch">搜索</button>
+  </view>
+  
+  <!-- 推荐职位列表 -->
+  <view class="job-section">
+    <text class="section-title">职位推荐</text>
+    <scroll-view class="job-list" scroll-y="true" bindscrolltolower="loadMore">
+      <view class="job-item" wx:for="{{jobs}}" wx:key="id" bindtap="toJobDetail" data-id="{{item.id}}">
+        <view class="job-title">{{item.title}}</view>
+        <view class="job-info">
+          <text>公司：{{item.company}}</text>
+          <text>薪资：{{item.salary}}</text>
+          <text>地点：{{item.location}}</text>
+        </view>
+        <view class="job-tags">
+          <text class="tag" wx:for="{{item.tags}}" wx:key="index">{{item}}</text>
+        </view>
+      </view>
+      <view wx:if="{{loadingMore}}" class="loading">加载中...</view>
+    </scroll-view>
+  </view>
+</view>

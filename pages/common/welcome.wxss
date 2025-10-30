@@ -1,0 +1,48 @@
+/* pages/welcome/welcome.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to bottom, #4A90E2, #FFFFFF); /* 渐变背景，蓝色到白色 */
+  padding: 20rpx;
+  animation: fadeIn 5s ease-in-out; /* 页面整体渐入 */
+}
+
+.logo {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 40rpx;
+  border-radius: 50%; /* 圆形logo */
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2); /* 阴影提升立体感 */
+}
+
+.slogan {
+  font-size: 36rpx;
+  color: #333333;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 60rpx;
+  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.1); /* 文字阴影 */
+}
+
+.start-btn {
+  width: 60%;
+  background-color: #4A90E2; /* 主题蓝 */
+  color: #FFFFFF;
+  font-size: 32rpx;
+  border-radius: 50rpx; /* 圆角按钮 */
+  box-shadow: 0 4rpx 8rpx rgba(74, 144, 226, 0.3); /* 按钮阴影 */
+  transition: all 0.3s; /*  hover效果（小程序不支持hover，但可模拟） */
+}
+
+.start-btn:hover {
+  background-color: #357ABD; /* 按下变深色 */
+}
+
+/* 页面渐入动画 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

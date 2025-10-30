@@ -1,0 +1,34 @@
+<!--pages/user/job-detail.wxml-->
+<view class="container">
+  <view class="job-header">
+    <text class="job-title">{{job.title}}</text>
+    <view class="job-meta">
+      <text>公司：{{job.company}}</text>
+      <text>薪资：{{job.salary}}</text>
+      <text>地点：{{job.location}}</text>
+    </view>
+    <view class="job-tags">
+      <text class="tag" wx:for="{{job.tags}}" wx:key="index">{{item}}</text>
+    </view>
+  </view>
+  
+  <view class="job-content">
+    <text class="section-title">职位描述</text>
+    <rich-text nodes="{{job.description}}" />
+    
+    <text class="section-title">任职要求</text>
+    <rich-text nodes="{{job.requirements}}" />
+    
+    <text class="section-title">福利待遇</text>
+    <rich-text nodes="{{job.benefits}}" />
+  </view>
+  
+  <view class="action-bar">
+    <button class="action-btn" bindtap="toggleCollect">{{ collected ? '已收藏' : '收藏' }}</button>
+    <button class="action-btn" open-type="share">分享</button>
+    <button class="action-btn" bindtap="startChat">聊天</button>
+    <button class="apply-btn" bindtap="applyJob" disabled="{{applied}}">{{ applied ? '已投递' : '一键投递' }}</button>
+  </view>
+  
+  <loading hidden="{{!loading}}">加载中...</loading>
+</view>

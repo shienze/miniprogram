@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "社区",
+  "navigationBarBackgroundColor": "#4A90E2",
+  "backgroundColor": "#F8F9FA",
+  "enablePullDownRefresh": true
+}

@@ -1,0 +1,6 @@
+<!--pages/welcome/welcome.wxml-->
+<view class="container">
+  <image class="logo" src="/images/logo.png" mode="aspectFit" animation="{{logoAnimationData}}"></image>
+  <text class="slogan" animation="{{sloganAnimationData}}">校园招聘，一站式连接未来</text>
+  <button class="start-btn" bindtap="startApp">立即开始</button>
+</view>

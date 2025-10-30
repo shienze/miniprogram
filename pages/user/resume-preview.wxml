@@ -1,0 +1,41 @@
+<!--pages/user/resume-preview.wxml-->
+<view class="container">
+  <view class="preview-header">
+    <text class="title">简历预览</text>
+  </view>
+  
+  <scroll-view class="preview-content" scroll-y="true">
+    <view class="resume-section">
+      <text class="section-title">基本信息</text>
+      <text>姓名：{{resume.name}}</text>
+      <text>手机号：{{resume.phone}}</text>
+      <text>邮箱：{{resume.email}}</text>
+    </view>
+    
+    <view class="resume-section">
+      <text class="section-title">教育经历</text>
+      <rich-text nodes="{{resume.education}}" />
+    </view>
+    
+    <view class="resume-section">
+      <text class="section-title">工作经验</text>
+      <rich-text nodes="{{resume.experience}}" />
+    </view>
+    
+    <view class="resume-section">
+      <text class="section-title">技能</text>
+      <rich-text nodes="{{resume.skills}}" />
+    </view>
+    
+    <view wx:if="{{attachmentPath}}" class="attachment">
+      <text class="section-title">附件</text>
+      <text>{{attachmentName}}</text>
+    </view>
+  </scroll-view>
+  
+  <view class="action-bar">
+    <button class="action-btn" bindtap="downloadResume">下载</button>
+    <button class="action-btn" open-type="share">分享</button>
+    <button class="action-btn" bindtap="backToEdit">返回编辑</button>
+  </view>
+</view>
