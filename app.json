@@ -4,6 +4,7 @@
     "pages/common/login",
     "pages/common/register",
     "pages/common/switch-role",
+
     "pages/user/index",
     "pages/user/community",
     "pages/user/post-detail",
@@ -17,17 +18,37 @@
     "pages/user/resume-preview",
     "pages/user/apply-track",
     "pages/user/profile-edit",
+    "pages/user/skill-growth",
+    "pages/user/course-detail",
+    "pages/user/settings",
+    "pages/user/class-list",
+    "pages/user/class-detail",
+    "pages/user/lesson-list",
+    "pages/user/lesson-detail",
+    "pages/user/intern-match",
+    "pages/user/career-test",
+
     "pages/enterprise/index",
     "pages/enterprise/job-publish",
+    "pages/enterprise/job-manage",
     "pages/enterprise/job-edit",
     "pages/enterprise/resume-filter",
-    "(pages/enterprise/resume-detail"
+    "pages/enterprise/resume-detail",
+    "pages/enterprise/data-analysis",
+    "pages/enterprise/profile",
+    "pages/enterprise/profile-edit",
+    "pages/enterprise/message",
+    "pages/enterprise/chat",
+    "pages/enterprise/settings",
+    "pages/enterprise/class-manage",
+    "pages/enterprise/class-detail-manage",
+    "pages/enterprise/lesson-manage-list",
+    "pages/enterprise/lesson-manage-detail"
   ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
   },
-  "style": "v2",
   "renderer": "webview",
   "rendererOptions": {
     "skyline": {
@@ -72,5 +93,5 @@
         "selectedIconPath": "/images/icons/profile-selected.png"
       }
     ]
-  }
+  }  
 }

@@ -1,2 +1,22 @@
 <!--pages/enterprise/job-edit.wxml-->
-<text>pages/enterprise/job-edit.wxml</text>
+<view class="container">
+  <form bindsubmit="saveJob">
+    <input class="input" name="title" placeholder="职位标题" value="{{job.title}}" />
+    <textarea class="textarea" name="description" placeholder="职位描述" value="{{job.description}}" />
+    <textarea class="textarea" name="requirements" placeholder="任职要求" value="{{job.requirements}}" />
+    <input class="input" name="salary" placeholder="薪资范围（如15-20k）" value="{{job.salary}}" />
+    <input class="input" name="location" placeholder="工作地点" value="{{job.location}}" />
+    <view class="skills-section">
+      <text class="section-title">技能要求</text>
+      <input class="input skill-input" placeholder="输入技能，按回车添加" bindconfirm="addSkill" />
+      <view class="skills">
+        <text class="skill-tag" wx:for="{{job.skills}}" wx:key="index" bindtap="removeSkill" data-index="{{index}}">{{item}} ×</text>
+      </view>
+    </view>
+    <button class="submit-btn" formType="submit">保存编辑</button>
+  </form>
+  
+  <button class="down-btn" bindtap="takeDown">下架职位</button>
+  
+  <loading hidden="{{!loading}}">操作中...</loading>
+</view>

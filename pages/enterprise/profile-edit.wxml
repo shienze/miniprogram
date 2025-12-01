@@ -1,0 +1,18 @@
+<!--pages/enterprise/profile-edit.wxml-->
+<view class="container">
+  <form bindsubmit="saveProfile">
+    <input class="input" name="company" placeholder="公司名称" value="{{company.name}}" />
+    <textarea class="textarea" name="intro" placeholder="公司简介" value="{{company.intro}}" />
+    <input class="input" name="contact" placeholder="联系人姓名" value="{{company.contact}}" />
+    <input class="input" name="phone" placeholder="联系电话" value="{{company.phone}}" />
+    <view class="upload-section">
+      <text class="section-title">上传营业执照（jpg/png）</text>
+      <button class="upload-btn" bindtap="uploadLicense">选择图片</button>
+      <image wx:if="{{company.licensePath}}" class="preview" src="{{company.licensePath}}" mode="aspectFit" />
+      <text wx:if="{{company.licensePath}}" class="upload-status">已选择: {{company.licenseName}}</text>
+    </view>
+    <button class="submit-btn" formType="submit">保存</button>
+  </form>
+  
+  <loading hidden="{{!loading}}">保存中...</loading>
+</view>

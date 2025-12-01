@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "职业测试",
+  "navigationBarBackgroundColor": "#4A90E2",
+  "backgroundColor": "#FFFFFF",
+  "enablePullDownRefresh": false
+}

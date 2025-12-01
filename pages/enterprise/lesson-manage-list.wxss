@@ -1,0 +1,157 @@
+/* pages/enterprise/lesson-manage-list.wxss */
+.container {
+  background: linear-gradient(to bottom, #4A90E2, #FFFFFF);
+  padding: 40rpx;
+  min-height: 100vh;
+}
+
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40rpx;
+}
+
+.filter-item {
+  background: #FFFFFF;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  flex: 1;
+  margin-right: 20rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.filter-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  width: 150rpx;
+}
+
+.lesson-list {
+  height: calc(100vh - 200rpx);
+}
+
+.lesson-item {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.lesson-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.lesson-info {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+}
+
+.lesson-preview {
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 20rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.cert-assoc {
+  font-size: 24rpx;
+  color: #15803D;
+  background: #BBF7D0;
+  padding: 10rpx;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+
+.edit-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  width: 200rpx;
+}
+
+.delete-btn {
+  background: #EF4444;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  width: 200rpx;
+}
+
+.create-btn {
+  position: fixed;
+  right: 40rpx;
+  bottom: 100rpx;
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50%;
+  width: 100rpx;
+  height: 100rpx;
+  font-size: 48rpx;
+  box-shadow: 0 8rpx 16rpx rgba(74, 144, 226, 0.3);
+}
+
+.modal-input, .modal-textarea {
+  border: 1rpx solid #DDDDDD;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+}
+
+.modal-picker {
+  border: 1rpx solid #DDDDDD;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.modal-textarea {
+  height: 200rpx;
+}
+
+.modal-upload-btn {
+  background: #10B981;
+  color: #FFFFFF;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.upload-status {
+  font-size: 24rpx;
+  color: #666666;
+  margin-bottom: 20rpx;
+}
+
+.loading {
+  text-align: center;
+  color: #999999;
+  padding: 20rpx;
+}
+
+.empty {
+  text-align: center;
+  color: #999999;
+  font-size: 28rpx;
+  padding: 40rpx;
+}

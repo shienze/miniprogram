@@ -1,0 +1,46 @@
+/* pages/user/course-detail.wxss */
+.container {
+  padding: 40rpx;
+}
+
+.video {
+  width: 100%;
+  height: 400rpx;
+  margin-bottom: 40rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.info {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 40rpx;
+}
+
+.notes-section {
+  background: #F0F0F0;
+  padding: 20rpx;
+  border-radius: 10rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.textarea {
+  height: 200rpx;
+  border: 1rpx solid #DDDDDD;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+button {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+}

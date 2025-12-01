@@ -23,7 +23,7 @@ Page({
     const storedChats = wx.getStorageSync('chats') || [];
     if (storedChats.length === 0) {
       const initialMock = [
-        { id: 1, avatar: '', name: '腾讯HR', lastMessage: '您好，您的简历已收到。', time: '10:30', unread: 2 },
+        { id: 1, avatar: '', name: 'XXHR', lastMessage: '您好，您的简历已收到。', time: '10:30', unread: 2 },
         // ...其他
       ];
       wx.setStorageSync('chats', initialMock);

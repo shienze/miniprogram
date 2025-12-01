@@ -1,35 +1,53 @@
-<!--pages/user/community.wxml-->
+<!-- pages/user/community.wxml -->
 <view class="container">
-  <!-- 搜索栏 -->
-  <view class="search-bar">
-    <input class="search-input" placeholder="搜索帖子/话题" bindinput="inputSearch" value="{{searchKeyword}}" />
+  <!-- 搜索框 -->
+  <view class="search-box">
+    <input class="search-input" placeholder="搜索帖子..." bindinput="inputSearch" value="{{searchKeyword}}" />
     <button class="search-btn" bindtap="doSearch">搜索</button>
   </view>
-  
+
   <!-- 帖子列表 -->
-  <scroll-view class="post-list" scroll-y="true" bindscrolltolower="loadMore" enable-pull-down-refresh="true" bindpulldownrefresh="onPullDownRefresh">
-    <view class="post-item" wx:for="{{posts}}" wx:key="id" bindtap="toPostDetail" data-id="{{item.id}}">
+  <view class="post-list">
+    <view wx:for="{{posts}}" wx:key="_id" class="post-item" 
+          data-id="{{item._id}}" 
+          data-index="{{index}}"
+          bindtap="toPostDetail">
+      
       <view class="post-header">
-        <image class="author-avatar" src="{{item.authorAvatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+        <image class="author-avatar" src="{{item.authorAvatar || '/images/default-avatar.png'}}" />
         <view class="author-info">
-          <text class="author-name">{{item.author}}</text>
+          <text class="author-name">{{item.author || '匿名用户'}}</text>
           <text class="post-time">{{item.time}}</text>
         </view>
       </view>
+      
       <text class="post-title">{{item.title}}</text>
-      <text class="post-preview">{{item.preview}}</text>
-      <view class="post-tags">
-        <text class="tag" wx:for="{{item.tags}}" wx:key="index">{{item}}</text>
+      <text class="post-preview">{{item.content}}</text>
+      
+      <view class="post-tags" wx:if="{{item.tags && item.tags.length > 0}}">
+        <text class="tag" wx:for="{{item.tags}}" wx:key="index">#{{item}}</text>
       </view>
-      <view class="post-actions">
-        <text class="action">点赞 {{item.likes}}</text>
-        <text class="action">评论 {{item.comments}}</text>
+      
+      <view class="post-stats">
+        <text class="stat">点赞 {{item.likes || 0}}</text>
+        <text class="stat">评论 {{item.comments || 0}}</text>
       </view>
     </view>
-    <view wx:if="{{loadingMore}}" class="loading">加载中...</view>
-    <view wx:if="{{posts.length === 0 && !loadingMore}}" class="empty">暂无帖子</view>
-  </scroll-view>
+  </view>
+
+  <!-- 加载更多 -->
+  <view wx:if="{{loadingMore}}" class="loading-more">
+    <text>加载中...</text>
+  </view>
   
-  <!-- 悬浮发布按钮 -->
-  <button class="fab" bindtap="toCreatePost">+</button>
+  <view wx:if="{{!hasMore && posts.length > 0}}" class="no-more">
+    <text>没有更多数据了</text>
+  </view>
+  
+  <view wx:if="{{!loadingMore && posts.length === 0}}" class="empty">
+    <text>暂无帖子</text>
+  </view>
+
+  <!-- 发帖按钮 -->
+  <button class="create-btn" bindtap="toCreatePost">发布帖子</button>
 </view>

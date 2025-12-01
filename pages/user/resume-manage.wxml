@@ -19,8 +19,8 @@
     </view>
     
     <view class="section">
-      <text class="section-title">技能</text>
-      <textarea class="textarea" name="skills" placeholder="技能列表" value="{{resume.skills}}" />
+      <text class="section-title">证书</text>
+      <textarea class="textarea" name="skills" placeholder="证书列表" value="{{resume.skills}}" />
     </view>
     
     <view class="upload-section">

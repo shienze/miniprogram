@@ -1,6 +1,6 @@
 <!--pages/user/profile.wxml-->
 <view class="container">
-  <view class="profile-header">
+  <view class="profile-header" style="position: relative; left: 1rpx; top: 83rpx">
     <image class="avatar" src="{{user.avatar || '/images/default-avatar.png'}}" mode="aspectFill" />
     <text class="name">{{user.name || '未登录用户'}}</text>
     <text class="info">{{user.school || '学校/专业未设置'}}</text>
@@ -12,12 +12,20 @@
       <text class="menu-text">简历管理</text>
       <image class="arrow" src="/images/arrow-right.png" mode="widthFix" />
     </view>
-    <view class="menu-item" bindtap="toApplyTrack">
+    <view class="menu-item" bindtap="toApplyTrack" style="width: 460rpx; display: flex; box-sizing: border-box">
       <text class="menu-text">投递进度</text>
       <image class="arrow" src="/images/arrow-right.png" mode="widthFix" />
     </view>
     <view class="menu-item" bindtap="toSkillGrowth">
       <text class="menu-text">技能成长</text>
+      <image class="arrow" src="/images/arrow-right.png" mode="widthFix" />
+    </view>
+    <view class="menu-item" bindtap="toCareerTest">
+      <text class="menu-text">职业规划</text>
+      <image class="arrow" src="/images/arrow-right.png" mode="widthFix" />
+    </view>
+    <view class="menu-item" bindtap="toClasses">
+      <text class="menu-text">订单班</text>
       <image class="arrow" src="/images/arrow-right.png" mode="widthFix" />
     </view>
     <view class="menu-item" bindtap="toSwitchRole">

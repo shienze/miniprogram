@@ -1,2 +1,20 @@
 <!--pages/enterprise/resume-filter.wxml-->
-<text>pages/enterprise/resume-filter.wxml</text>
+<view class="container">
+  <view class="filter-bar" style="position: relative; left: 0rpx; top: 179rpx">
+    <picker bindchange="changeSchool" range="{{schoolOptions}}" style="position: relative; left: 0rpx; top: 99rpx">
+      <view>学校: {{schoolOptions[schoolIndex]}}</view>
+    </picker>
+    <picker bindchange="changeMajor" range="{{majorOptions}}" style="position: relative; left: 0rpx; top: 99rpx">
+      <view style="position: relative; left: 22rpx; top: 1rpx">专业: {{majorOptions[majorIndex]}}</view>
+    </picker>
+    <button bindtap="applyFilter" style="position: relative; left: 38rpx; top: 77rpx">筛选</button>
+  </view>
+  
+  <scroll-view class="resume-list" scroll-y="true" style="position: relative; left: 0rpx; top: 245rpx">
+    <view class="resume-item" wx:for="{{resumes}}" wx:key="id" bindtap="toResumeDetail" data-id="{{item.id}}">
+      <text class="name">{{item.name}}</text>
+      <text class="info">{{item.school}} · {{item.major}}</text>
+      <text class="match">匹配度: {{item.match}}%</text>
+    </view>
+  </scroll-view>
+</view>

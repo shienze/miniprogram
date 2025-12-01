@@ -4,14 +4,18 @@ Page({
     title: '',
     content: '',
     tags: [],
-    tagInput: '', // 临时输入
+    tagInput: '',
     attachmentPath: '',
     attachmentName: '',
     loading: false
   },
 
-  onLoad: function () {
-    // 可初始化
+  inputTitle: function (e) {
+    this.setData({ title: e.detail.value });
+  },
+
+  inputContent: function (e) {
+    this.setData({ content: e.detail.value });
   },
 
   addTag: function (e) {
@@ -43,33 +47,30 @@ Page({
     });
   },
 
-  submitPost: function (e) {
-    const formData = e.detail.value;
-    if (!formData.title || !formData.content) {
+  submitPost: function () {
+    const { title, content, tags, attachmentName } = this.data;
+    if (!title || !content) {
       wx.showToast({ title: '请填写标题和内容', icon: 'none' });
       return;
     }
     this.setData({ loading: true });
     
-    // 生成新帖
-    const storedPosts = wx.getStorageSync('posts') || [];
-    const newPost = {
-      id: storedPosts.length + 1,
-      author: '当前用户', // 模拟
-      authorAvatar: '',
-      time: '刚刚',
-      title: formData.title,
-      preview: formData.content.substring(0, 50) + '...',
-      content: formData.content, // 详情用
-      tags: this.data.tags,
-      likes: 0,
-      comments: 0
-    };
-    storedPosts.unshift(newPost); // 加到顶部
-    wx.setStorageSync('posts', storedPosts);
-    
-    wx.showToast({ title: '发布成功' });
-    wx.navigateBack(); // 返回社区刷新
-    this.setData({ loading: false });
+    wx.cloud.callFunction({
+      name: 'createPosts',  // 修改为createPosts
+      data: { title, content, tags, attachment: attachmentName },
+      success: res => {
+        const result = res.result;
+        if (result.success) {
+          wx.showToast({ title: '发布成功' });
+          wx.navigateBack();
+        } else {
+          wx.showToast({ title: result.msg, icon: 'none' });
+        }
+      },
+      fail: err => {
+        wx.showToast({ title: '发布失败: ' + err.errMsg, icon: 'none' });
+      },
+      complete: () => this.setData({ loading: false })
+    });
   }
 });

@@ -1,0 +1,42 @@
+<!--pages/user/lesson-detail.wxml-->
+<view class="container">
+  <text class="title">{{lesson.title}}</text>
+  <text class="info">时间: {{lesson.time}} | 类型: {{lesson.type}} | 进度: {{lesson.progress}}%</text>
+  <text class="cert-tip" wx:if="{{lesson.certTip}}">证书备考提示: {{lesson.certTip}}</text>
+  
+  <!-- 内容显示 -->
+  <video wx:if="{{lesson.type === '视频'}}" src="{{lesson.url}}" controls class="video-player"></video>
+  <rich-text wx:if="{{lesson.type === '文档' || lesson.type === '资料'}}" nodes="{{lesson.content}}" class="document" />
+  
+  <!-- 作业提交（如果类型作业） -->
+  <view class="homework-section" wx:if="{{lesson.type === '作业'}}">
+    <text class="section-title">作业提交</text>
+    <textarea class="textarea" placeholder="作业描述/反馈" value="{{homeworkNote}}" bindinput="inputHomeworkNote" />
+    <button class="upload-btn" bindtap="uploadHomework">上传附件</button>
+    <text wx:if="{{homeworkAttachment}}" class="upload-status">已上传: {{homeworkAttachment}}</text>
+    <button class="submit-btn" bindtap="submitHomework">提交</button>
+  </view>
+  
+  <!-- 笔记 -->
+  <view class="notes-section">
+    <text class="section-title">笔记</text>
+    <textarea class="textarea" placeholder="记录笔记" value="{{notes}}" bindinput="inputNotes" />
+    <button class="save-btn" bindtap="saveNotes">保存笔记</button>
+  </view>
+  
+  <!-- 反馈/评论 -->
+  <view class="feedback-section">
+    <text class="section-title">反馈评论</text>
+    <input class="input" placeholder="输入反馈..." value="{{newFeedback}}" bindinput="inputFeedback" />
+    <button class="submit-btn" bindtap="submitFeedback">发送</button>
+    <view class="feedback-list">
+      <view class="feedback-item" wx:for="{{feedbacks}}" wx:key="id">
+        <text class="feedback-author">{{item.author}}</text>
+        <text class="feedback-text">{{item.text}}</text>
+        <text class="feedback-time">{{item.time}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <loading hidden="{{!loading}}">操作中...</loading>
+</view>

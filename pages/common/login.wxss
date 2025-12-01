@@ -32,7 +32,7 @@
   margin-bottom: 20rpx;
 }
 
-.role-section, .phone-section {
+.role-section {
   margin-bottom: 40rpx;
 }
 
@@ -48,32 +48,7 @@
   font-size: 28rpx;
 }
 
-.input {
-  border: 1rpx solid #DDDDDD;
-  border-radius: 10rpx;
-  padding: 20rpx;
-  margin-bottom: 20rpx;
-  font-size: 28rpx;
-}
-
-.code-row {
-  display: flex;
-}
-
-.code-input {
-  flex: 1;
-  margin-right: 20rpx;
-}
-
-.code-btn {
-  background: #4A90E2;
-  color: #FFFFFF;
-  border-radius: 10rpx;
-  font-size: 24rpx;
-  width: 200rpx;
-}
-
-.wx-btn, .phone-btn {
+.wx-btn {
   background: #4A90E2;
   color: #FFFFFF;
   border-radius: 50rpx;
@@ -83,8 +58,8 @@
   transition: transform 0.2s;
 }
 
-.wx-btn:hover, .phone-btn:hover {
-  transform: scale(1.05); /* 点击放大动画 */
+.wx-btn:hover {
+  transform: scale(1.05);
 }
 
 .register-link {

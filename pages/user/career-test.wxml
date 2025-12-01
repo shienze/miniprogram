@@ -1,0 +1,48 @@
+<!--pages/user/career-test.wxml-->
+<view class="container">
+  <!-- 问卷 -->
+  <view class="section questionnaire">
+    <text class="section-title">职业测试问卷</text>
+    <form bindsubmit="submitTest">
+      <picker bindchange="changePersonality" range="{{personalityOptions}}" value="{{personalityIndex}}">
+        <view class="form-item">个性类型: {{personalityOptions[personalityIndex]}}</view>
+      </picker>
+      <picker bindchange="changeSkills" range="{{skillsOptions}}" value="{{skillsIndex}}">
+        <view class="form-item">技能强项: {{skillsOptions[skillsIndex]}}</view>
+      </picker>
+      <picker bindchange="changeInterest" range="{{interestOptions}}" value="{{interestIndex}}">
+        <view class="form-item">兴趣领域: {{interestOptions[interestIndex]}}</view>
+      </picker>
+      <button class="submit-btn" formType="submit">生成报告</button>
+    </form>
+  </view>
+  
+  <!-- 报告 -->
+  <view class="section report" wx:if="{{report}}">
+    <text class="section-title">职业测试报告</text>
+    <rich-text nodes="{{report}}" />
+  </view>
+  
+  <!-- 推荐证书/课程 -->
+  <view class="section recommendations" wx:if="{{recommendations.certificates.length > 0 || recommendations.courses.length > 0}}">
+    <text class="section-title">推荐证书</text>
+    <view class="rec-list">
+      <text wx:for="{{recommendations.certificates}}" wx:key="index">{{item}}</text>
+    </view>
+    <text class="section-title">推荐课程</text>
+    <view class="rec-list">
+      <text wx:for="{{recommendations.courses}}" wx:key="index">{{item}}</text>
+    </view>
+  </view>
+  
+  <!-- 线下服务广告位 -->
+  <view class="section offline-service">
+    <text class="section-title">线下职业规划服务</text>
+    <view class="ad-card">
+      <text class="ad-title">专业职业规划咨询</text>
+      <text class="ad-desc">我们提供线下1对1职业规划服务，包括简历优化、面试指导、证书备考计划。适合大专生就业提升。</text>
+      <text class="ad-contact">联系微信: wxid_example (点击复制)</text>
+      <button class="copy-btn" bindtap="copyWechat">复制微信名片</button>
+    </view>
+  </view>
+</view>

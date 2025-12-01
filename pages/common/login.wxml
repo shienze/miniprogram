@@ -1,4 +1,3 @@
-<!--pages/common/login.wxml-->
 <view class="container">
   <view class="form-container">
     <text class="title">登录</text>
@@ -8,32 +7,30 @@
       <text class="section-title">选择您的角色</text>
       <radio-group class="role-group" bindchange="handleRoleChange">
         <label class="role-item">
-          <radio value="user" checked="{{role === 'user'}}" /> 学生/求职者
+          <radio value="user" checked="{{role === 'user'}}" color="#07c160" /> 学生/求职者
         </label>
         <label class="role-item">
-          <radio value="enterprise" checked="{{role === 'enterprise'}}" /> 企业/机构
+          <radio value="enterprise" checked="{{role === 'enterprise'}}" color="#07c160" /> 企业/机构
         </label>
       </radio-group>
     </view>
-    
-    <!-- 微信登录 -->
-    <button class="wx-btn" open-type="getUserInfo" bindgetuserinfo="wxLogin">微信一键登录</button>
-    
-    <!-- 手机号登录 -->
-    <view class="phone-section">
-      <text class="section-title">或使用手机号登录</text>
-      <input class="input" placeholder="请输入手机号" bindinput="inputPhone" value="{{phone}}" />
-      <view class="code-row">
-        <input class="input code-input" placeholder="验证码" bindinput="inputCode" value="{{code}}" />
-        <button class="code-btn" bindtap="sendCode" disabled="{{countdown > 0}}">{{ countdown > 0 ? countdown + 's' : '获取验证码' }}</button>
+ 
+    <view class="login-section">
+      <button 
+        class="login-btn"
+        bindtap="handleLogin"
+        loading="{{loading}}"
+      >
+        {{loading ? '登录中...' : '微信一键登录'}}
+      </button>
+
+      <!-- 注册链接 -->
+      <view class="register-container">
+        <text class="register-link" bindtap="toRegister">没有账号？立即注册</text>
       </view>
-      <button class="phone-btn" bindtap="phoneLogin">登录</button>
     </view>
-    
-    <!-- 注册链接 -->
-    <text class="register-link" bindtap="toRegister">没有账号？立即注册</text>
   </view>
   
-  <!-- 加载动画 -->
-  <loading hidden="{{!loading}}">登录中...</loading>
+  <!-- 使用 wx.showLoading 代替，这个可以删除 -->
+  <!-- <loading hidden="{{!loading}}">登录中...</loading> -->
 </view>

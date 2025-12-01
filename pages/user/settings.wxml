@@ -1,0 +1,20 @@
+<!--pages/user/settings.wxml-->
+<view class="container">
+  <view class="section">
+    <text class="section-title">通知设置</text>
+    <switch checked="{{settings.notify}}" bindchange="toggleNotify" />
+  </view>
+  
+  <view class="section">
+    <text class="section-title">隐私设置</text>
+    <switch checked="{{settings.privacy}}" bindchange="togglePrivacy" />
+  </view>
+  
+  <view class="menu-item" bindtap="toHelp">
+    <text>帮助中心</text>
+  </view>
+  
+  <view class="menu-item logout" bindtap="logout">
+    <text class="logout-text">退出登录</text>
+  </view>
+</view>

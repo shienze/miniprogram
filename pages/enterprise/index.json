@@ -1,7 +1,7 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "首页",
+  "navigationBarTitleText": "企业中心",
   "navigationBarBackgroundColor": "#4A90E2",
   "backgroundColor": "#FFFFFF",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": false
 }

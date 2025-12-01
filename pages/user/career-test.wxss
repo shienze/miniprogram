@@ -1,0 +1,83 @@
+/* pages/user/career-test.wxss */
+.container {
+  background: linear-gradient(to bottom, #4A90E2, #FFFFFF);
+  padding: 40rpx;
+  min-height: 100vh;
+}
+
+.section {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 36rpx;
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.form-item {
+  border: 1rpx solid #DDDDDD;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.submit-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+}
+
+.report {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.rec-list {
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.rec-list text {
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.ad-card {
+  background: #F0F0F0;
+  border-radius: 10rpx;
+  padding: 20rpx;
+}
+
+.ad-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.ad-desc {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+}
+
+.ad-contact {
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 20rpx;
+}
+
+.copy-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+}

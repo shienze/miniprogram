@@ -1,0 +1,91 @@
+/* pages/enterprise/chat.wxss */
+.container {
+  background: #F8F9FA;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-list {
+  flex: 1;
+  padding: 20rpx;
+}
+
+.message-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20rpx;
+}
+
+.message-item.other {
+  flex-direction: row;
+}
+
+.message-item.me {
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin: 0 20rpx;
+}
+
+.bubble {
+  max-width: 60%;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.message-item.other .bubble {
+  background: #FFFFFF;
+}
+
+.message-item.me .bubble {
+  background: #4A90E2;
+  color: #FFFFFF;
+}
+
+.time {
+  font-size: 24rpx;
+  color: #999999;
+  margin-top: 10rpx;
+  text-align: center;
+  width: 100%;
+}
+
+.input-bar {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  padding: 20rpx;
+  box-shadow: 0 -4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.attach-btn {
+  background: #EAF4FF;
+  color: #4A90E2;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  margin-right: 20rpx;
+  width: 100rpx;
+}
+
+.input {
+  flex: 1;
+  border: 1rpx solid #DDDDDD;
+  border-radius: 50rpx;
+  padding: 20rpx;
+  margin-right: 20rpx;
+}
+
+.send-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  width: 150rpx;
+}

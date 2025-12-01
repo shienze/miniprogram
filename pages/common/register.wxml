@@ -1,9 +1,8 @@
-<!--pages/common/register.wxml-->
+<!-- pages/common/register.wxml -->
 <view class="container">
   <view class="form-container">
     <text class="title">注册</text>
-    
-    <!-- 角色选择 -->
+  
     <view class="role-section">
       <text class="section-title">选择您的角色</text>
       <radio-group class="role-group" bindchange="handleRoleChange">
@@ -16,39 +15,96 @@
       </radio-group>
     </view>
     
-    <!-- 公共字段：手机号和验证码 -->
-    <input class="input" placeholder="请输入手机号" bindinput="inputPhone" value="{{phone}}" />
-    <view class="code-row">
-      <input class="input code-input" placeholder="验证码" bindinput="inputCode" value="{{code}}" />
-      <button class="code-btn" bindtap="sendCode" disabled="{{countdown > 0}}">{{ countdown > 0 ? countdown + 's' : '获取验证码' }}</button>
-    </view>
-    
-    <!-- 学生角色字段 -->
+    <button class="wx-btn" bindtap="handleWechatAuth">微信认证</button>
+
     <block wx:if="{{role === 'user'}}">
+      <view class="field-label">姓名</view>
       <input class="input" placeholder="姓名" bindinput="inputName" value="{{name}}" />
-      <input class="input" placeholder="学校" bindinput="inputSchool" value="{{school}}" />
-      <input class="input" placeholder="专业" bindinput="inputMajor" value="{{major}}" />
-      <input class="input" placeholder="年级（如大三）" bindinput="inputGrade" value="{{grade}}" />
+
+      <view class="search-field">
+        <view class="field-label">院校</view>
+        <input 
+          class="input search-input" 
+          placeholder="搜索院校名称" 
+          bindinput="onSchoolSearch"
+          value="{{schoolKeyword}}"
+        />
+
+        <view class="selected-item" wx:if="{{school}}">
+          <text class="selected-text">已选择: {{school}}</text>
+          <text class="clear-btn" bindtap="clearSchool">×</text>
+        </view>
+
+        <view class="search-results" wx:if="{{showSchoolList && schoolKeyword && filteredSchools.length > 0}}">
+          <scroll-view scroll-y style="max-height: 300rpx;">
+            <block wx:for="{{filteredSchools}}" wx:key="*this">
+              <view 
+                class="result-item" 
+                bindtap="selectSchool"
+                data-school="{{item}}"
+              >
+                {{item}}
+              </view>
+            </block>
+          </scroll-view>
+        </view>
+        <view class="no-results" wx:if="{{showSchoolList && schoolKeyword && filteredSchools.length === 0}}">
+          未找到相关院校
+        </view>
+      </view>
+
+      <view class="form-item">
+  <view class="label">专业</view>
+  
+  <view class="sub-label">专业大类</view>
+  <picker 
+    range="{{majorCategories}}" 
+    value="{{majorCategoryIndex}}"
+    bindchange="onMajorCategoryChange"
+  >
+    <view class="picker">{{majorCategory || '请选择专业大类'}}</view>
+  </picker>
+  
+  <view wx:if="{{majorCategory}}">
+    <view class="sub-label">专业名称</view>
+    <picker 
+      range="{{currentMajorNames}}" 
+      value="{{majorNameIndex}}"
+      bindchange="onMajorNameChange"
+    >
+      <view class="picker">{{majorName || '请选择专业名称'}}</view>
+    </picker>
+  </view>
+</view>
+
+      
+
+      <view class="picker-field">
+        <view class="field-label">年级</view>
+        <picker bindchange="changeGrade" range="{{gradeOptions}}" value="{{gradeIndex}}">
+          <view class="picker">
+            {{gradeOptions[gradeIndex]}}
+          </view>
+        </picker>
+      </view>
     </block>
     
-    <!-- 企业角色字段 -->
     <block wx:if="{{role === 'enterprise'}}">
-      <input class="input" placeholder="公司名称" bindinput="inputCompany" value="{{company}}" />
+      <input class="input" placeholder="企业名称" bindinput="inputCompany" value="{{company}}" />
       <input class="input" placeholder="联系人姓名" bindinput="inputContact" value="{{contact}}" />
-      <view class="upload-section">
-        <text class="section-title">上传营业执照（jpg/png）</text>
-        <button class="upload-btn" bindtap="uploadLicense">选择图片</button>
-        <image wx:if="{{licensePath}}" class="preview" src="{{licensePath}}" mode="aspectFit" />
-        <text wx:if="{{licensePath}}" class="upload-status">已选择：{{licenseName}}</text>
-      </view>
+      <input class="input" placeholder="企业邮箱" bindinput="inputEmail" value="{{email}}" />
     </block>
     
     <button class="submit-btn" bindtap="submitRegister">注册</button>
     
-    <!-- 登录链接 -->
     <text class="login-link" bindtap="toLogin">已有账号？立即登录</text>
   </view>
   
-  <!-- 加载动画 -->
+  <view 
+    class="mask" 
+    wx:if="{{showSchoolList || showMajorCategoryList || showMajorNameList}}" 
+    bindtap="hideAllLists"
+  ></view>
+  
   <loading hidden="{{!loading}}">注册中...</loading>
 </view>

@@ -48,6 +48,21 @@
   font-size: 28rpx;
 }
 
+.wx-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  margin-bottom: 20rpx;
+}
+
+.auth-status {
+  font-size: 28rpx;
+  color: #15803D;
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
 .input {
   border: 1rpx solid #DDDDDD;
   border-radius: 10rpx;
@@ -56,46 +71,12 @@
   font-size: 28rpx;
 }
 
-.code-row {
-  display: flex;
+.picker {
+  border: 1rpx solid #DDDDDD;
+  border-radius: 10rpx;
+  padding: 20rpx;
   margin-bottom: 20rpx;
-}
-
-.code-input {
-  flex: 1;
-  margin-right: 20rpx;
-}
-
-.code-btn {
-  background: #4A90E2;
-  color: #FFFFFF;
-  border-radius: 10rpx;
-  font-size: 24rpx;
-  width: 200rpx;
-}
-
-.upload-section {
-  margin-bottom: 40rpx;
-}
-
-.upload-btn {
-  background: #4A90E2;
-  color: #FFFFFF;
-  border-radius: 10rpx;
   font-size: 28rpx;
-  margin-bottom: 20rpx;
-}
-
-.preview {
-  width: 200rpx;
-  height: 200rpx;
-  border-radius: 10rpx;
-  margin-bottom: 10rpx;
-}
-
-.upload-status {
-  font-size: 24rpx;
-  color: #666666;
 }
 
 .submit-btn {

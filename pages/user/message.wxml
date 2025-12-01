@@ -1,7 +1,7 @@
 <!--pages/user/message.wxml-->
 <view class="container">
   <scroll-view class="chat-list" scroll-y="true" enable-pull-down-refresh="true" bindpulldownrefresh="onPullDownRefresh">
-    <view class="chat-item" wx:for="{{chats}}" wx:key="id" bindtap="toChat" data-id="{{item.id}}">
+    <view class="chat-item" wx:for="{{chats}}" wx:key="id" bindtap="toChat" data-id="{{item.id}}" style="position: relative; left: 0rpx; top: 168rpx">
       <image class="avatar" src="{{item.avatar || '/images/default-avatar.png'}}" mode="aspectFill" />
       <view class="chat-info">
         <text class="name">{{item.name}}</text>

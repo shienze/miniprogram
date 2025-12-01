@@ -1,0 +1,20 @@
+<!--pages/enterprise/resume-detail.wxml-->
+<view class="container" style="position: relative; left: 46rpx; top: 233rpx; width: 660rpx; display: flex; box-sizing: border-box">
+  <view class="resume-header">
+    <text class="name">{{resume.name}}</text>
+    <text class="info">{{resume.school}} · {{resume.major}}</text>
+  </view>
+  
+  <rich-text nodes="{{resume.content}}" />
+  
+  <view class="attachment" wx:if="{{resume.attachment}}">
+    <text>附件: {{resume.attachmentName}}</text>
+    <button bindtap="downloadAttachment">下载</button>
+  </view>
+  
+  <view class="action-bar">
+    <button class="action-btn" bindtap="inviteInterview" style="position: relative; left: 0rpx; top: 0rpx; width: 200rpx; display: block; box-sizing: border-box">邀请面试</button>
+    <button class="action-btn" bindtap="reject" style="width: 200rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">拒绝</button>
+    <button class="action-btn" bindtap="startChat" style="width: 200rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">聊天</button>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "招聘数据分析",
+  "navigationBarBackgroundColor": "#4A90E2",
+  "backgroundColor": "#FFFFFF",
+  "enablePullDownRefresh": false
+}

@@ -1,0 +1,50 @@
+<!--pages/enterprise/class-detail-manage.wxml-->
+<view class="container">
+  <!-- 班级信息 -->
+  <view class="header">
+    <text class="class-name">{{classInfo.name}}</text>
+    <text class="class-info">专业: {{classInfo.professional}} | 学校: {{classInfo.school}} | 成员: {{classInfo.members}}人</text>
+    <textarea class="textarea preview-textarea" placeholder="编辑简介" value="{{classInfo.preview}}" bindinput="inputPreview" />
+    <button class="save-btn" bindtap="saveInfo">保存简介</button>
+  </view>
+  
+  <!-- 公告编辑 -->
+  <view class="section announcement">
+    <text class="section-title">公告编辑</text>
+    <textarea class="textarea" placeholder="编辑公告，支持富文本" value="{{announcement}}" bindinput="inputAnnouncement" />
+    <button class="save-btn" bindtap="saveAnnouncement">保存公告</button>
+  </view>
+  
+  <!-- 成员管理 -->
+  <view class="section members">
+    <text class="section-title">成员管理</text>
+    <scroll-view scroll-y="true" class="member-list">
+      <view class="member-item" wx:for="{{members}}" wx:key="id">
+        <image class="member-avatar" src="{{item.avatar || '/images/default-avatar.png'}}" />
+        <text class="member-name">{{item.name}}</text>
+        <text class="member-info">{{item.professional}} | 状态: {{item.status}}</text>
+        <view class="member-actions">
+          <button class="approve-btn" wx:if="{{item.status === '待审批'}}" bindtap="approveMember" data-id="{{item.id}}">审批通过</button>
+          <button class="remove-btn" bindtap="removeMember" data-id="{{item.id}}">移除</button>
+        </view>
+      </view>
+      <view wx:if="{{members.length === 0}}" class="empty">暂无成员</view>
+    </scroll-view>
+  </view>
+  
+  <!-- 授课内容入口 -->
+  <view class="section lessons">
+    <text class="section-title">授课内容管理</text>
+    <button class="action-btn" bindtap="toLessonManage">管理授课内容</button>
+  </view>
+  
+  <!-- 数据统计 -->
+  <view class="section stats">
+    <text class="section-title">成员活跃度统计</text>
+    <view class="stat-list">
+      <text wx:for="{{activeStats}}" wx:key="id">{{item.name}}: 活跃度 {{item.active}}% (签到: {{item.signIns}}, 作业提交: {{item.homeworks}})</text>
+    </view>
+  </view>
+  
+  <loading hidden="{{!loading}}">操作中...</loading>
+</view>

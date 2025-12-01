@@ -1,0 +1,134 @@
+/* pages/enterprise/lesson-manage-detail.wxss */
+.container {
+  background: linear-gradient(to bottom, #4A90E2, #FFFFFF);
+  padding: 40rpx;
+  min-height: 100vh;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.info {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 20rpx;
+}
+
+.preview-textarea, .input {
+  border: 1rpx solid #DDDDDD;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+}
+
+.preview-textarea {
+  height: 200rpx;
+}
+
+.save-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  margin-bottom: 40rpx;
+}
+
+.content-section {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 36rpx;
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.upload-btn {
+  background: #10B981;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  margin-bottom: 20rpx;
+}
+
+.upload-status {
+  font-size: 24rpx;
+  color: #666666;
+  margin-bottom: 20rpx;
+}
+
+.homework-section {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.submission-list {
+  height: 600rpx;
+}
+
+.submission-item {
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.student-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.submission-info {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+}
+
+.feedback-textarea {
+  height: 100rpx;
+  border: 1rpx solid #DDDDDD;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 10rpx;
+  font-size: 28rpx;
+}
+
+.save-feedback-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  width: 200rpx;
+}
+
+.stats-section {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.stats-section text {
+  display: block;
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+}
+
+.empty {
+  text-align: center;
+  color: #999999;
+  font-size: 28rpx;
+}

@@ -1,0 +1,45 @@
+<!--pages/user/skill-growth.wxml-->
+<view class="container">
+  <!-- 职业规划工具 -->
+  <view class="section planning">
+    <text class="section-title">职业规划问卷</text>
+    <form bindsubmit="submitQuestionnaire">
+      <picker name="major" bindchange="changeMajor" range="{{majorOptions}}" value="{{majorIndex}}">
+        <view class="form-item">专业: {{majorOptions[majorIndex]}}</view>
+      </picker>
+      <picker name="interest" bindchange="changeInterest" range="{{interestOptions}}" value="{{interestIndex}}">
+        <view class="form-item">兴趣领域: {{interestOptions[interestIndex]}}</view>
+      </picker>
+      <picker name="experience" bindchange="changeExperience" range="{{experienceOptions}}" value="{{experienceIndex}}">
+        <view class="form-item">经验水平: {{experienceOptions[experienceIndex]}}</view>
+      </picker>
+      <button class="submit-btn" formType="submit">生成规划</button>
+    </form>
+    <view wx:if="{{planningSuggestion}}" class="suggestion">
+      <text class="suggestion-title">规划建议：</text>
+      <text>{{planningSuggestion}}</text>
+    </view>
+  </view>
+  
+  <!-- 在线课程列表 -->
+  <view class="section courses">
+    <text class="section-title">推荐课程</text>
+    <view class="course-list">
+      <view class="course-item" wx:for="{{courses}}" wx:key="id" bindtap="toCourseDetail" data-id="{{item.id}}">
+        <text class="course-title">{{item.title}}</text>
+        <text class="course-info">时长: {{item.duration}} | 进度: {{item.progress}}%</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 专业证书考取 -->
+  <view class="section certificates">
+    <text class="section-title">专业证书考取</text>
+    <view class="cert-list">
+      <view class="cert-item" wx:for="{{certificates}}" wx:key="id" bindtap="toCertDetail" data-id="{{item.id}}">
+        <text class="cert-title">{{item.title}}</text>
+        <text class="cert-info">要求: {{item.requirements}} | 报名指南: {{item.guide}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,44 @@
+<!--pages/user/class-list.wxml-->
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索班级/企业" bindinput="inputSearch" value="{{searchKeyword}}" />
+    <button class="search-btn" bindtap="doSearch">搜索</button>
+  </view>
+  
+  <!-- 筛选 -->
+  <view class="filter-bar">
+    <picker bindchange="changeProfessional" range="{{professionalOptions}}" value="{{professionalIndex}}">
+      <view class="filter-item">专业: {{professionalOptions[professionalIndex]}}</view>
+    </picker>
+    <picker bindchange="changeSchool" range="{{schoolOptions}}" value="{{schoolIndex}}">
+      <view class="filter-item">学校: {{schoolOptions[schoolIndex]}}</view>
+    </picker>
+    <button class="filter-btn" bindtap="applyFilter">应用筛选</button>
+  </view>
+  
+  <!-- 班级列表 -->
+  <scroll-view class="class-list" scroll-y="true" bindscrolltolower="loadMore" enable-pull-down-refresh="true" bindpulldownrefresh="onPullDownRefresh">
+    <view class="recommend-section" wx:if="{{recommendedClasses.length > 0}}">
+      <text class="section-title">推荐班级</text>
+      <view class="class-item" wx:for="{{recommendedClasses}}" wx:key="id" bindtap="toClassDetail" data-id="{{item.id}}">
+        <text class="class-title">{{item.name}}</text>
+        <text class="class-info">企业: {{item.enterprise}} | 专业: {{item.professional}} | 成员: {{item.members}}人</text>
+        <text class="class-preview">{{item.preview}}</text>
+        <button class="join-btn" bindtap="joinClass" data-id="{{item.id}}" wx:if="{{!item.joined}}">加入</button>
+        <text class="joined" wx:if="{{item.joined}}">已加入</text>
+      </view>
+    </view>
+    
+    <text class="section-title">所有班级</text>
+    <view class="class-item" wx:for="{{classes}}" wx:key="id" bindtap="toClassDetail" data-id="{{item.id}}">
+      <text class="class-title">{{item.name}}</text>
+      <text class="class-info">企业: {{item.enterprise}} | 专业: {{item.professional}} | 成员: {{item.members}}人</text>
+      <text class="class-preview">{{item.preview}}</text>
+      <button class="join-btn" bindtap="joinClass" data-id="{{item.id}}" wx:if="{{!item.joined}}">加入</button>
+      <text class="joined" wx:if="{{item.joined}}">已加入</text>
+    </view>
+    <view wx:if="{{loadingMore}}" class="loading">加载中...</view>
+    <view wx:if="{{classes.length === 0 && !loadingMore}}" class="empty">暂无班级</view>
+  </scroll-view>
+</view>

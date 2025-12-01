@@ -1,0 +1,101 @@
+/* pages/user/class-detail.wxss */
+.container {
+  background: linear-gradient(to bottom, #4A90E2, #FFFFFF);
+  padding: 40rpx;
+  min-height: 100vh;
+}
+
+.header {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.class-name {
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.class-info {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 20rpx;
+}
+
+.class-desc {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.section {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 36rpx;
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.member-list {
+  height: 400rpx;
+}
+
+.member-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.member-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.member-name {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.member-info {
+  font-size: 24rpx;
+  color: #666666;
+  margin-left: 20rpx;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.action-btn {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  margin-bottom: 20rpx;
+}
+
+.exit-btn {
+  background: #EF4444;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+}
+
+.empty {
+  text-align: center;
+  color: #999999;
+  font-size: 28rpx;
+}

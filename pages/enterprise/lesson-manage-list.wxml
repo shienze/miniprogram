@@ -1,0 +1,44 @@
+<!--pages/enterprise/lesson-manage-list.wxml-->
+<view class="container">
+  <!-- 筛选 -->
+  <view class="filter-bar">
+    <picker bindchange="changeType" range="{{typeOptions}}" value="{{typeIndex}}">
+      <view class="filter-item">类型: {{typeOptions[typeIndex]}}</view>
+    </picker>
+    <button class="filter-btn" bindtap="applyFilter">应用筛选</button>
+  </view>
+  
+  <!-- 授课内容列表 -->
+  <scroll-view class="lesson-list" scroll-y="true" bindscrolltolower="loadMore" enable-pull-down-refresh="true" bindpulldownrefresh="onPullDownRefresh">
+    <view class="lesson-item" wx:for="{{lessons}}" wx:key="id" bindtap="toLessonManageDetail" data-id="{{item.id}}">
+      <text class="lesson-title">{{item.title}}</text>
+      <text class="lesson-info">时间: {{item.time}} | 类型: {{item.type}} | 完成率: {{item.completionRate}}%</text>
+      <text class="lesson-preview">{{item.preview}}</text>
+      <text class="cert-assoc" wx:if="{{item.certAssoc}}">关联证书: {{item.certAssoc}}</text>
+      <view class="actions">
+        <button class="edit-btn" bindtap="editLesson" data-id="{{item.id}}">编辑</button>
+        <button class="delete-btn" bindtap="deleteLesson" data-id="{{item.id}}">删除</button>
+      </view>
+    </view>
+    <view wx:if="{{loadingMore}}" class="loading">加载中...</view>
+    <view wx:if="{{lessons.length === 0 && !loadingMore}}" class="empty">暂无授课内容</view>
+  </scroll-view>
+  
+  <!-- 创建新内容按钮 -->
+  <button class="create-btn" bindtap="showCreateModal">+ 新增授课内容</button>
+  
+  <!-- 创建弹窗 -->
+  <modal hidden="{{!showCreateModal}}" title="新增授课内容" bindconfirm="createLesson" bindcancel="closeCreateModal">
+    <input class="modal-input" name="title" placeholder="标题" bindinput="inputTitle" value="{{newLesson.title}}" />
+    <picker bindchange="changeLessonType" range="{{typeOptions}}" value="{{lessonTypeIndex}}">
+      <view class="modal-picker">类型: {{typeOptions[lessonTypeIndex]}}</view>
+    </picker>
+    <input class="modal-input" name="time" placeholder="时间（如2023-10-01 10:00）" bindinput="inputTime" value="{{newLesson.time}}" />
+    <textarea class="modal-textarea" name="preview" placeholder="简介" bindinput="inputPreview" value="{{newLesson.preview}}" />
+    <input class="modal-input" name="certAssoc" placeholder="关联证书（可选，如计算机二级）" bindinput="inputCertAssoc" value="{{newLesson.certAssoc}}" />
+    <button class="modal-upload-btn" bindtap="uploadFile">上传文件（视频/文档）</button>
+    <text wx:if="{{newLesson.filePath}}" class="upload-status">已上传: {{newLesson.fileName}}</text>
+  </modal>
+  
+  <loading hidden="{{!loading}}">操作中...</loading>
+</view>

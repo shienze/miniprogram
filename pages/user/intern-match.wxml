@@ -1,0 +1,43 @@
+<!--pages/user/intern-match.wxml-->
+<view class="container">
+  <!-- 轮播banner (实习专属) -->
+  <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="500">
+    <swiper-item wx:for="{{banners}}" wx:key="index">
+      <image src="{{item.url}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+  
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索实习/公司" bindinput="inputSearch" value="{{searchKeyword}}" />
+    <button class="search-btn" bindtap="doSearch">搜索</button>
+  </view>
+  
+  <!-- 筛选 -->
+  <view class="filter-bar">
+    <picker bindchange="changeDuration" range="{{durationOptions}}" value="{{durationIndex}}">
+      <view class="filter-item">时长: {{durationOptions[durationIndex]}}</view>
+    </picker>
+    <picker bindchange="changeLocation" range="{{locationOptions}}" value="{{locationIndex}}">
+      <view class="filter-item">地点: {{locationOptions[locationIndex]}}</view>
+    </picker>
+    <picker bindchange="changeProfessional" range="{{professionalOptions}}" value="{{professionalIndex}}">
+      <view class="filter-item">专业: {{professionalOptions[professionalIndex]}}</view>
+    </picker>
+    <button class="filter-btn" bindtap="applyFilter">应用筛选</button>
+  </view>
+  
+  <!-- 实习列表 -->
+  <scroll-view class="intern-list" scroll-y="true" bindscrolltolower="loadMore" enable-pull-down-refresh="true" bindpulldownrefresh="onPullDownRefresh">
+    <view class="intern-item" wx:for="{{interns}}" wx:key="id" bindtap="toInternDetail" data-id="{{item.id}}">
+      <text class="intern-title">{{item.title}}</text>
+      <text class="intern-info">公司: {{item.company}} | 时长: {{item.duration}} | 地点: {{item.location}}</text>
+      <view class="intern-tags">
+        <text class="tag" wx:for="{{item.tags}}" wx:key="index">{{item}}</text>
+      </view>
+      <button class="apply-btn" bindtap="applyIntern" data-id="{{item.id}}">一键投递</button>
+    </view>
+    <view wx:if="{{loadingMore}}" class="loading">加载中...</view>
+    <view wx:if="{{interns.length === 0 && !loadingMore}}" class="empty">暂无实习机会</view>
+  </scroll-view>
+</view>

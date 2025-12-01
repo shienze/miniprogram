@@ -1,0 +1,15 @@
+<!--pages/enterprise/job-manage.wxml-->
+<view class="container">
+  <view class="job-list">
+    <view class="job-item" wx:for="{{jobs}}" wx:key="id">
+      <text class="title">{{item.title}}</text>
+      <text class="status {{item.status === '已发布' ? 'active' : 'inactive'}}">{{item.status}}</text>
+      <text class="info">薪资: {{item.salary}} | 地点: {{item.location}}</text>
+      <view class="actions">
+        <button class="edit-btn" bindtap="toEdit" data-id="{{item.id}}">编辑</button>
+        <button class="down-btn" bindtap="takeDown" data-id="{{item.id}}">下架</button>
+      </view>
+    </view>
+    <view wx:if="{{jobs.length === 0}}" class="empty">暂无职位</view>
+  </view>
+</view>

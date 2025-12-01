@@ -4,60 +4,25 @@ Page({
     searchKeyword: '',
     posts: [],
     page: 1,
-    loadingMore: false
+    loadingMore: false,
+    hasMore: true
   },
 
   onLoad: function () {
-    this.initMockPosts(); // 初始存储mock
+    console.log('社区页面加载');
     this.loadPosts();
   },
-
-  onShow: function () {
-    this.loadPosts(); // 返回刷新
-  },
-
 
   onPullDownRefresh: function () {
-    this.setData({ page: 1, posts: [] });
-    this.loadPosts();
-    wx.stopPullDownRefresh();
-  },
-
-
-  initMockPosts: function () {
-    const storedPosts = wx.getStorageSync('posts') || [];
-    if (storedPosts.length === 0) {
-      const initialMock = [
-        // 原有mockPosts
-        { id: 1, author: '李四', authorAvatar: '', time: '1小时前', title: '求职经验分享', preview: '分享我的秋招经历...', tags: ['求职', '经验'], likes: 12, comments: 5 },
-        // ...其他
-      ];
-      wx.setStorageSync('posts', initialMock);
-    }
-  },
-
-  loadPosts: function () {
-    this.setData({ loadingMore: true });
-    // 模拟从storage加载
-    let posts = wx.getStorageSync('posts') || [];
-    // 关键词过滤
-    if (this.data.searchKeyword) {
-      posts = posts.filter(post => post.title.includes(this.data.searchKeyword) || post.preview.includes(this.data.searchKeyword));
-    }
-    // 分页模拟（实际storage全载，生产用API分页）
-    const pagePosts = posts.slice((this.data.page - 1) * 5, this.data.page * 5);
-    this.setData({
-      posts: this.data.posts.concat(pagePosts),
-      page: this.data.page + 1,
-      loadingMore: false
+    console.log('下拉刷新');
+    this.setData({ 
+      page: 1, 
+      posts: [], 
+      hasMore: true 
     });
-  },
-
-
-  loadMore: function () {
-    if (!this.data.loadingMore) {
-      this.loadPosts();
-    }
+    this.loadPosts().then(() => {
+      wx.stopPullDownRefresh();
+    });
   },
 
   inputSearch: function (e) {
@@ -65,16 +30,100 @@ Page({
   },
 
   doSearch: function () {
-    this.setData({ page: 1, posts: [] });
+    console.log('搜索关键词:', this.data.searchKeyword);
+    this.setData({ 
+      page: 1, 
+      posts: [], 
+      hasMore: true 
+    });
     this.loadPosts();
   },
 
+  loadPosts: function () {
+    if (this.data.loadingMore) return;
+    
+    this.setData({ loadingMore: true });
+    console.log('加载帖子，页码:', this.data.page, '关键词:', this.data.searchKeyword);
+    
+    wx.cloud.callFunction({
+      name: 'getPosts',
+      data: { 
+        page: this.data.page, 
+        keyword: this.data.searchKeyword 
+      },
+      success: res => {
+        console.log('云函数调用成功:', res);
+        const result = res.result;
+        if (result.success) {
+          console.log('=== 社区页面获取的帖子数据 ===');
+          result.posts.forEach((post, index) => {
+            console.log(`帖子${index + 1}:`, {
+              title: post.title,
+              _id: post._id,
+              id: post.id,
+              has_id: !!post._id,
+              has_id_field: '_id' in post
+            });
+          });
+          
+          this.setData({
+            posts: this.data.page === 1 ? result.posts : this.data.posts.concat(result.posts),
+            page: this.data.page + 1,
+            hasMore: result.posts.length >= 10 // 假设每页10条
+          });
+          
+          if (result.posts.length === 0 && this.data.page > 1) {
+            wx.showToast({ title: '没有更多数据了', icon: 'none' });
+          }
+        } else {
+          console.error('云函数返回失败:', result.msg);
+          wx.showToast({ title: result.msg || '加载失败', icon: 'none' });
+        }
+      },
+      fail: err => {
+        console.error('云函数调用失败:', err);
+        wx.showToast({ title: '加载失败: ' + err.errMsg, icon: 'none' });
+      },
+      complete: () => {
+        this.setData({ loadingMore: false });
+      }
+    });
+  },
+
+  loadMore: function () {
+    if (!this.data.loadingMore && this.data.hasMore) {
+      this.loadPosts();
+    }
+  },
+
   toPostDetail: function (e) {
-    const id = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: '/pages/user/post-detail?id=' + id });
+    console.log('=== 点击帖子调试信息 ===');
+    console.log('点击事件数据:', e.currentTarget.dataset);
+    
+    const postIndex = e.currentTarget.dataset.index;
+    const post = this.data.posts[postIndex];
+    
+    console.log('完整的帖子数据:', post);
+    
+    // 重要：使用帖子的 _id，不是 postId
+    const id = post._id;
+    
+    console.log('最终使用的ID (_id):', id);
+    
+    if (!id) {
+      wx.showToast({ title: '帖子ID不存在', icon: 'none' });
+      return;
+    }
+    
+    wx.navigateTo({ 
+      url: '/pages/user/post-detail?id=' + id 
+    });
   },
 
   toCreatePost: function () {
-    wx.navigateTo({ url: '/pages/user/create-post' });
+    console.log('跳转到发帖页面');
+    wx.navigateTo({ 
+      url: '/pages/user/post-create' 
+    });
   }
 });

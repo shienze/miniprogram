@@ -1,5 +1,5 @@
 <!--pages/user/job-search.wxml-->
-<view class="container">
+<view class="container" style="position: relative; left: 0rpx; top: 83rpx">
   <!-- 搜索栏 -->
   <view class="search-bar">
     <input class="search-input" placeholder="搜索职位/公司" bindinput="inputSearch" value="{{searchKeyword}}" />

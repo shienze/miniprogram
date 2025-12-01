@@ -10,9 +10,9 @@
     </view>
   </scroll-view>
   
-  <view class="input-bar">
-    <button class="attach-btn" bindtap="sendAttachment">附件</button>
-    <input class="input" placeholder="输入消息..." bindinput="inputMessage" value="{{newMessage}}" />
-    <button class="send-btn" bindtap="sendMessage">发送</button>
+  <view class="input-bar" style="position: relative; left: 0rpx; top: -107rpx; width: 691rpx; display: flex; box-sizing: border-box">
+    <button class="attach-btn" bindtap="sendAttachment" style="position: relative; left: 0rpx; top: -1rpx; width: 172rpx; display: block; box-sizing: border-box">附件</button>
+    <input style="position: relative; left: 10rpx; top: 1rpx; width: 268rpx; display: block; box-sizing: border-box; height: 68rpx" class="input" placeholder="输入消息..." bindinput="inputMessage" value="{{newMessage}}" />
+    <button class="send-btn" bindtap="sendMessage" style="width: 172rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">发送</button>
   </view>
 </view>

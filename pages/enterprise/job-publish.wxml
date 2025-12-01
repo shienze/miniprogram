@@ -1,2 +1,123 @@
-<!--pages/enterprise/job-publish.wxml-->
-<text>pages/enterprise/job-publish.wxml</text>
+<!-- pages/enterprise/job-publish.wxml -->
+<view class="job-publish">
+  <form bindsubmit="submitJob">
+    
+    <!-- 职位标题 -->
+    <view class="form-item">
+      <view class="label">职位标题</view>
+      <input name="title" value="{{job.title}}" placeholder="请输入职位标题" class="input" />
+    </view>
+
+    <!-- 职位描述 -->
+    <view class="form-item">
+      <view class="label">职位描述</view>
+      <textarea name="description" value="{{job.description}}" placeholder="请输入职位描述" class="textarea" auto-height />
+    </view>
+
+    <!-- 职位要求 -->
+    <view class="form-item">
+      <view class="label">职位要求</view>
+      <textarea name="requirements" value="{{job.requirements}}" placeholder="请输入职位要求" class="textarea" auto-height />
+    </view>
+
+    <!-- 薪资范围 -->
+    <view class="form-item">
+      <view class="label">薪资范围</view>
+      <input name="salary" value="{{job.salary}}" placeholder="例如：5000-8000元/月" class="input" />
+    </view>
+
+    <!-- 工作地点 - 三级联动 -->
+    <view class="form-item">
+      <view class="label">工作地点</view>
+      
+      <!-- 省份（固定为陕西省） -->
+      <view class="location-item">
+        <view class="sub-label">省份</view>
+        <picker range="{{['陕西省']}}" value="0" disabled>
+          <view class="picker">陕西省</view>
+        </picker>
+      </view>
+
+      <!-- 市级选择 -->
+      <view class="location-item">
+        <view class="sub-label">市级</view>
+        <picker range="{{cities}}" value="{{cities.indexOf(job.city)}}" bindchange="onCityChange">
+          <view class="picker">{{job.city || '请选择市级'}}</view>
+        </picker>
+      </view>
+
+      <!-- 区县选择 -->
+      <view class="location-item">
+        <view class="sub-label">区县</view>
+        <picker range="{{districts}}" value="{{districts.indexOf(job.district)}}" bindchange="onDistrictChange">
+          <view class="picker">{{job.district || '请选择区县'}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 工作类型 -->
+    <view class="form-item">
+      <view class="label">工作类型</view>
+      <picker range="{{jobTypes}}" value="{{jobTypes.indexOf(job.jobType)}}" bindchange="onJobTypeChange">
+        <view class="picker">{{job.jobType || '请选择工作类型'}}</view>
+      </picker>
+    </view>
+
+    <!-- 专业要求 - 二级联动 -->
+    <view class="form-item">
+      <view class="label">专业要求</view>
+      
+      <!-- 专业大类选择 -->
+      <view class="major-item">
+        <view class="sub-label">专业大类</view>
+        <picker range="{{majorCategories}}" value="{{majorCategories.indexOf(job.majorCategory)}}" bindchange="onMajorCategoryChange">
+          <view class="picker">{{job.majorCategory || '请选择专业大类'}}</view>
+        </picker>
+      </view>
+
+      <!-- 专业名称选择 -->
+      <view class="major-item">
+        <view class="sub-label">专业名称</view>
+        <picker range="{{majorNames}}" value="{{majorNames.indexOf(job.majorName)}}" bindchange="onMajorNameChange">
+          <view class="picker">{{job.majorName || '请选择专业名称'}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 证书要求 -->
+<view class="form-item">
+  <view class="label">证书要求</view>
+  <view class="certificates-section">
+    <view class="certificates-options">
+      <block wx:for="{{availableCertificates}}" wx:key="*this" wx:for-index="index">
+        <view class="certificate-item {{job.certificates.includes(item) ? 'selected' : ''}}" 
+              bindtap="onCertificateChange" data-index="{{index}}">
+          {{item}}
+        </view>
+      </block>
+    </view>
+    
+    <!-- 已选证书展示 -->
+    <view class="selected-certificates" wx:if="{{job.certificates.length > 0}}">
+      <view class="section-title">已选择证书：</view>
+      <view class="selected-tags">
+        <block wx:for="{{job.certificates}}" wx:key="*this" wx:for-index="index">
+          <view class="tag">
+            {{item}}
+            <text class="remove" bindtap="removeCertificate" data-index="{{index}}">×</text>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+
+    <!-- 提交按钮 -->
+    <view class="form-submit">
+      <button type="primary" form-type="submit" class="submit-btn" disabled="{{loading}}" style="position: relative; left: 0rpx; top: 0rpx">
+        {{loading ? '发布中...' : '发布职位'}}
+      </button>
+    </view>
+
+  </form>
+</view>

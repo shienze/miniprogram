@@ -1,26 +1,29 @@
-<!--pages/user/job-detail.wxml-->
 <view class="container">
-  <view class="job-header">
-    <text class="job-title">{{job.title}}</text>
-    <view class="job-meta">
-      <text>公司：{{job.company}}</text>
-      <text>薪资：{{job.salary}}</text>
-      <text>地点：{{job.location}}</text>
+  <view class="header">
+    <text class="title">{{job.title}}</text>
+    <text class="status">{{job.status}}</text>
+    <view class="enterprise-info">
+      <image class="avatar" src="{{job.enterpriseInfo.avatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+      <text class="company-name">{{job.enterpriseInfo.name}}</text>
+      <text class="contact">联系人: {{job.enterpriseInfo.contact}}</text>
+      <text class="email">邮箱: {{job.enterpriseInfo.email}}</text>
+      <text class="nickname">昵称: {{job.enterpriseInfo.nickname}}</text>
     </view>
-    <view class="job-tags">
-      <text class="tag" wx:for="{{job.tags}}" wx:key="index">{{item}}</text>
-    </view>
+    <text class="job-type">职位类型: {{job.jobType}}</text>
+    <text class="salary">薪资: {{job.salary}}</text>
+    <text class="location">地点: {{job.location.province}} {{job.location.city}} {{job.location.district}}</text>
+    <text class="certificates">证书要求: {{job.certificates.join(', ')}}</text>
+    <text class="major-requirements">专业要求: {{job.majorRequirements.category}} - {{job.majorRequirements.name}}</text>
   </view>
   
-  <view class="job-content">
+  <view class="section description">
     <text class="section-title">职位描述</text>
     <rich-text nodes="{{job.description}}" />
-    
+  </view>
+  
+  <view class="section requirements">
     <text class="section-title">任职要求</text>
     <rich-text nodes="{{job.requirements}}" />
-    
-    <text class="section-title">福利待遇</text>
-    <rich-text nodes="{{job.benefits}}" />
   </view>
   
   <view class="action-bar">

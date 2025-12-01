@@ -1,0 +1,24 @@
+<!--pages/user/lesson-list.wxml-->
+<view class="container">
+  <!-- 筛选 -->
+  <view class="filter-bar">
+    <picker bindchange="changeType" range="{{typeOptions}}" value="{{typeIndex}}">
+      <view class="filter-item">类型: {{typeOptions[typeIndex]}}</view>
+    </picker>
+    <button class="filter-btn" bindtap="applyFilter">应用</button>
+  </view>
+  
+  <!-- 授课列表 -->
+  <scroll-view class="lesson-list" scroll-y="true" bindscrolltolower="loadMore" enable-pull-down-refresh="true" bindpulldownrefresh="onPullDownRefresh">
+    <view class="lesson-item" wx:for="{{lessons}}" wx:key="id" bindtap="toLessonDetail" data-id="{{item.id}}">
+      <text class="lesson-title">{{item.title}}</text>
+      <text class="lesson-info">时间: {{item.time}} | 类型: {{item.type}} | 进度: {{item.progress}}%</text>
+      <text class="lesson-preview">{{item.preview}}</text>
+      <text class="cert-tip" wx:if="{{item.certTip}}">证书备考提示: {{item.certTip}}</text>
+      <button class="download-btn" wx:if="{{item.type === '文档' || item.type === '资料'}}" bindtap="downloadLesson" data-id="{{item.id}}">下载资料</button>
+      <button class="submit-btn" wx:if="{{item.type === '作业'}}" bindtap="submitHomework" data-id="{{item.id}}">提交作业</button>
+    </view>
+    <view wx:if="{{loadingMore}}" class="loading">加载中...</view>
+    <view wx:if="{{lessons.length === 0 && !loadingMore}}" class="empty">暂无授课内容</view>
+  </scroll-view>
+</view>

@@ -1,0 +1,11 @@
+<text>pages/user/course-detail.wxml</text><view class="container">
+  <video class="video" src="{{course.videoUrl}}" controls></video>
+  <text class="title">{{course.title}}</text>
+  <text class="info">时长: {{course.duration}} | 进度: {{course.progress}}%</text>
+  
+  <view class="notes-section">
+    <text class="section-title">笔记</text>
+    <textarea class="textarea" placeholder="记录笔记..." value="{{notes}}" bindinput="inputNotes" />
+    <button bindtap="saveNotes">保存笔记</button>
+  </view>
+</view>

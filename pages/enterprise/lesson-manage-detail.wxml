@@ -1,0 +1,38 @@
+<!--pages/enterprise/lesson-manage-detail.wxml-->
+<view class="container">
+  <text class="title">{{lesson.title}}</text>
+  <text class="info">时间: {{lesson.time}} | 类型: {{lesson.type}} | 完成率: {{lesson.completionRate}}%</text>
+  <textarea class="textarea preview-textarea" placeholder="编辑简介" value="{{lesson.preview}}" bindinput="inputPreview" />
+  <input class="input" placeholder="关联证书（如计算机二级）" value="{{lesson.certAssoc}}" bindinput="inputCertAssoc" />
+  <button class="save-btn" bindtap="saveInfo">保存信息</button>
+  
+  <!-- 内容编辑 -->
+  <view class="content-section">
+    <text class="section-title">内容编辑</text>
+    <button class="upload-btn" bindtap="uploadFile">上传/替换文件</button>
+    <text wx:if="{{lesson.fileName}}" class="upload-status">当前文件: {{lesson.fileName}}</text>
+  </view>
+  
+  <!-- 作业批改（如果类型作业） -->
+  <view class="homework-section" wx:if="{{lesson.type === '作业'}}">
+    <text class="section-title">作业批改</text>
+    <scroll-view scroll-y="true" class="submission-list">
+      <view class="submission-item" wx:for="{{submissions}}" wx:key="id">
+        <text class="student-name">{{item.studentName}}</text>
+        <text class="submission-info">提交时间: {{item.time}} | 附件: {{item.attachment}}</text>
+        <textarea class="textarea feedback-textarea" placeholder="输入反馈..." value="{{item.feedback}}" bindinput="inputFeedback" data-id="{{item.id}}" />
+        <button class="save-feedback-btn" bindtap="saveFeedback" data-id="{{item.id}}">保存反馈</button>
+      </view>
+      <view wx:if="{{submissions.length === 0}}" class="empty">暂无提交</view>
+    </scroll-view>
+  </view>
+  
+  <!-- 统计 -->
+  <view class="stats-section">
+    <text class="section-title">统计</text>
+    <text>查看率: {{stats.viewRate}}%</text>
+    <text>完成率: {{stats.completionRate}}%</text>
+  </view>
+  
+  <loading hidden="{{!loading}}">操作中...</loading>
+</view>

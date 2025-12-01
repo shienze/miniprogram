@@ -1,6 +1,5 @@
-/* pages/user/index.wxss */
 .container {
-  background: linear-gradient(to bottom, #4A90E2 0%, #FFFFFF 30%); /* 渐变背景 */
+  background: linear-gradient(to bottom, #4A90E2, #FFFFFF); /* 渐变背景 */
   padding: 20rpx;
   min-height: 100vh;
 }
@@ -49,7 +48,7 @@
 }
 
 .job-list {
-  height: 800rpx; /* 适应屏幕 */
+  height: calc(100vh - 400rpx); /* 适应屏幕 */
 }
 
 .job-item {
@@ -61,9 +60,8 @@
   transition: transform 0.2s;
 }
 
-.job-item:active {
-  transform: scale(0.98);
-  opacity: 0.9;
+.job-item:hover {
+  transform: scale(1.02);
 }
 
 .job-title {
@@ -81,18 +79,21 @@
   margin-bottom: 10rpx;
 }
 
-.job-tags {
-  display: flex;
-  flex-wrap: wrap;
+.job-type {
+  font-size: 24rpx;
+  color: #4A90E2;
+  margin-bottom: 10rpx;
 }
 
-.tag {
-  background: #EAF4FF;
-  color: #4A90E2;
-  padding: 5rpx 10rpx;
-  border-radius: 10rpx;
-  font-size: 22rpx;
-  margin-right: 10rpx;
+.cert-requirements {
+  font-size: 24rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+}
+
+.major-requirements {
+  font-size: 24rpx;
+  color: #666666;
   margin-bottom: 10rpx;
 }
 

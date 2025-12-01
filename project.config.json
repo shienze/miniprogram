@@ -21,5 +21,8 @@
     "include": []
   },
   "appid": "wxfd78a7a14a6b75df",
-  "editorSetting": {}
+  "cloudfunctionRoot": "cloud/",
+  "miniprogramRoot": "./",
+  "editorSetting": {},
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
 }

@@ -1,0 +1,26 @@
+<!--pages/enterprise/profile.wxml-->
+<view class="container">
+  <view class="profile-header" style="position: relative; left: 0rpx; top: 147rpx">
+    <image class="avatar" src="{{company.avatar}}" />
+    <text class="name">{{company.name}}</text>
+    <text class="info">{{company.status}}</text>
+  </view>
+  
+  <view class="menu-list">
+    <view class="menu-item" bindtap="toEditInfo">
+      <text>编辑公司信息</text>
+      <image class="arrow" src="/images/arrow-right.png" />
+    </view>
+    <view class="menu-item" bindtap="toCertify" style="width: 410rpx; display: flex; box-sizing: border-box; height: 99rpx">
+      <text>认证更新</text>
+      <image class="arrow" src="/images/arrow-right.png" />
+    </view>
+    <view class="menu-item" bindtap="toSettings">
+      <text>设置</text>
+      <image class="arrow" src="/images/arrow-right.png" />
+    </view>
+    <view class="menu-item logout" bindtap="logout">
+      <text class="logout-text">退出登录</text>
+    </view>
+  </view>
+</view>

@@ -1,26 +1,22 @@
-<!--pages/user/post-create.wxml-->
+<!-- pages/user/post-create.wxml -->
 <view class="container">
-  <form bindsubmit="submitPost">
-    <input class="input title-input" name="title" placeholder="帖子标题" value="{{title}}" />
-    
-    <textarea class="textarea" name="content" placeholder="帖子内容，支持富文本" value="{{content}}" />
-    
-    <view class="tag-section">
-      <text class="section-title">添加标签</text>
-      <input class="input tag-input" placeholder="输入标签，按回车添加" bindconfirm="addTag" />
-      <view class="tags">
-        <text class="tag" wx:for="{{tags}}" wx:key="index" bindtap="removeTag" data-index="{{index}}">{{item}} ×</text>
-      </view>
-    </view>
-    
-    <view class="upload-section">
-      <text class="section-title">上传附件（可选）</text>
-      <button class="upload-btn" bindtap="uploadAttachment">选择文件</button>
-      <text wx:if="{{attachmentPath}}" class="upload-status">已选择：{{attachmentName}}</text>
-    </view>
-    
-    <button class="submit-btn" formType="submit">发布</button>
-  </form>
+  <input class="input title-input" placeholder="帖子标题" bindinput="inputTitle" value="{{title}}" />
   
-  <loading hidden="{{!loading}}">发布中...</loading>
+  <textarea class="textarea" placeholder="帖子内容" bindinput="inputContent" value="{{content}}" />
+  
+  <view class="tag-section">
+    <text class="section-title">添加标签</text>
+    <input class="input tag-input" placeholder="输入标签，按回车添加" bindconfirm="addTag" value="{{tagInput}}" />
+    <view class="tags">
+      <text class="tag" wx:for="{{tags}}" wx:key="index" bindtap="removeTag" data-index="{{index}}">{{item}} ×</text>
+    </view>
+  </view>
+  
+  <view class="upload-section">
+    <text class="section-title">上传附件（可选）</text>
+    <button class="upload-btn" bindtap="uploadAttachment">选择文件</button>
+    <text wx:if="{{attachmentPath}}" class="upload-status">已选择: {{attachmentName}}</text>
+  </view>
+  
+  <button class="submit-btn" bindtap="submitPost">发布</button>
 </view>

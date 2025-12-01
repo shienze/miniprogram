@@ -1,0 +1,39 @@
+<!--pages/user/class-detail.wxml-->
+<view class="container">
+  <!-- 班级信息 -->
+  <view class="header">
+    <text class="class-name">{{classInfo.name}}</text>
+    <text class="class-info">企业: {{classInfo.enterprise}} | 专业: {{classInfo.professional}} | 成员: {{classInfo.members}}人</text>
+    <rich-text class="class-desc" nodes="{{classInfo.description}}" />
+  </view>
+  
+  <!-- 公告 -->
+  <view class="section announcement">
+    <text class="section-title">公告</text>
+    <rich-text nodes="{{announcement}}" />
+  </view>
+  
+  <!-- 成员列表 -->
+  <view class="section members">
+    <text class="section-title">成员列表</text>
+    <scroll-view scroll-y="true" class="member-list">
+      <view class="member-item" wx:for="{{members}}" wx:key="id">
+        <image class="member-avatar" src="{{item.avatar || '/images/default-avatar.png'}}" />
+        <text class="member-name">{{item.name}}</text>
+        <text class="member-info">{{item.professional}}</text>
+      </view>
+      <view wx:if="{{members.length === 0}}" class="empty">暂无成员</view>
+    </scroll-view>
+  </view>
+  
+  <!-- 互动 -->
+  <view class="section actions">
+    <text class="section-title">互动</text>
+    <button class="action-btn" bindtap="signIn">签到</button>
+    <button class="action-btn" bindtap="toDiscussion">讨论区</button>
+    <button class="action-btn" bindtap="toLessons">授课内容</button>
+    <button class="exit-btn" bindtap="exitClass">退出班级</button>
+  </view>
+  
+  <loading hidden="{{!loading}}">操作中...</loading>
+</view>

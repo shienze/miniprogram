@@ -41,12 +41,15 @@ Page({
   },
 
   toSkillGrowth: function () {
-    wx.showToast({ title: '技能成长页面开发中', icon: 'none' });
-    // wx.navigateTo({ url: '/pages/user/skill-growth' });
+    wx.navigateTo({ url: '/pages/user/skill-growth' });
   },
 
   toProfileEdit: function () {
-    wx.navigateTo({ url: '/pages/user/profile-edit' }); // 可新建编辑页
+    wx.navigateTo({ url: '/pages/user/profile-edit' }); 
+  },
+
+  toClasses: function () {
+    wx.navigateTo({ url: '/pages/user/class-list' }); 
   },
 
   toSwitchRole: function () {
@@ -54,7 +57,11 @@ Page({
   },
 
   toSettings: function () {
-    wx.navigateTo({ url: '/pages/user/settings' }); // 可新建设置页
+    wx.navigateTo({ url: '/pages/user/settings' }); 
+  },
+
+  toCareerTest: function () {
+    wx.navigateTo({ url: '/pages/user/career-test' }); 
   },
 
   logout: function () {

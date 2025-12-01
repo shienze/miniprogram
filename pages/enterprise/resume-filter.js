@@ -1,66 +1,41 @@
 // pages/enterprise/resume-filter.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    schoolOptions: ['全部', '清华大学', '北京大学'],
+    schoolIndex: 0,
+    majorOptions: ['全部', '计算机', '工商管理'],
+    majorIndex: 0,
+    resumes: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  onLoad: function () {
+    this.loadResumes();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  loadResumes: function () {
+    // 模拟
+    const mockResumes = [
+      { id: 1, name: '张三', school: '清华大学', major: '计算机', match: 90 },
+      { id: 2, name: '李四', school: '北京大学', major: '工商管理', match: 85 }
+    ];
+    this.setData({ resumes: mockResumes });
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
+  changeSchool: function (e) {
+    this.setData({ schoolIndex: e.detail.value });
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
+  changeMajor: function (e) {
+    this.setData({ majorIndex: e.detail.value });
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
+  applyFilter: function () {
+    this.loadResumes(); // 模拟过滤
+    wx.showToast({ title: '筛选成功' });
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  toResumeDetail: function (e) {
+    const id = e.currentTarget.dataset.id;
+    wx.navigateTo({ url: '/pages/enterprise/resume-detail?id=' + id });
   }
-})
+});

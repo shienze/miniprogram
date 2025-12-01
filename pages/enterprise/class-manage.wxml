@@ -1,0 +1,41 @@
+<!--pages/enterprise/class-manage.wxml-->
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar" style="position: relative; left: 0rpx; top: 156rpx">
+    <input class="search-input" placeholder="搜索班级/专业" bindinput="inputSearch" value="{{searchKeyword}}" />
+    <button class="search-btn" bindtap="doSearch">搜索</button>
+  </view>
+  
+  <!-- 班级列表 -->
+  <scroll-view class="class-list" scroll-y="true" bindscrolltolower="loadMore" enable-pull-down-refresh="true" bindpulldownrefresh="onPullDownRefresh">
+    <view class="class-item" wx:for="{{classes}}" wx:key="id" bindtap="toClassDetailManage" data-id="{{item.id}}" style="position: relative; left: 0rpx; top: 174rpx">
+      <text class="class-title">{{item.name}}</text>
+      <text class="class-info">专业: {{item.professional}} | 学校: {{item.school}} | 成员: {{item.members}}人</text>
+      <text class="class-preview">{{item.preview}}</text>
+      <text class="class-status {{item.status === '活跃' ? 'active' : 'inactive'}}">{{item.status}}</text>
+      <view class="actions">
+        <button class="edit-btn" bindtap="editClass" data-id="{{item.id}}">编辑</button>
+        <button class="delete-btn" bindtap="deleteClass" data-id="{{item.id}}">删除</button>
+      </view>
+    </view>
+    <view wx:if="{{loadingMore}}" class="loading">加载中...</view>
+    <view wx:if="{{classes.length === 0 && !loadingMore}}" class="empty">暂无订单班</view>
+  </scroll-view>
+  
+  <!-- 创建新班按钮 -->
+  <button class="create-btn" bindtap="showCreateModal" style="width: 395rpx; display: block; box-sizing: border-box; left: 314rpx; top: 1437rpx; position: fixed">+ 创建订单班</button>
+  
+  <!-- 创建弹窗 -->
+  <modal hidden="{{!showCreateModal}}" title="创建订单班" bindconfirm="createClass" bindcancel="closeCreateModal">
+    <input class="modal-input" name="name" placeholder="班级名称" bindinput="inputName" value="{{newClass.name}}" />
+    <picker bindchange="changeProfessional" range="{{professionalOptions}}" value="{{professionalIndex}}">
+      <view class="modal-picker">专业: {{professionalOptions[professionalIndex]}}</view>
+    </picker>
+    <picker bindchange="changeSchool" range="{{schoolOptions}}" value="{{schoolIndex}}">
+      <view class="modal-picker">学校: {{schoolOptions[schoolIndex]}}</view>
+    </picker>
+    <textarea class="modal-textarea" name="preview" placeholder="班级简介" bindinput="inputPreview" value="{{newClass.preview}}" />
+  </modal>
+  
+  <loading hidden="{{!loading}}">操作中...</loading>
+</view>

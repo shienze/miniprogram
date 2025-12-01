@@ -81,7 +81,7 @@ Page({
     if (role === 'user') {
       wx.switchTab({ url: '/pages/user/index' });
     } else if (role === 'enterprise') {
-      wx.switchTab({ url: '/pages/enterprise/index' });
+      wx.reLaunch({ url: '/pages/enterprise/index' });
     }
   },
 

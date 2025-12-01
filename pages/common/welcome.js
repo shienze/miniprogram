@@ -35,18 +35,30 @@ Page({
 
   checkLogin: function () {
     const token = wx.getStorageSync('token');
-    const role = wx.getStorageSync('role'); // 假设role为'user'或'enterprise'
-
+    const role = wx.getStorageSync('role');
+  
     if (token) {
       if (role === 'user') {
-        wx.switchTab({ url: '/pages/user/index' });
+        wx.switchTab({ 
+          url: '/pages/user/index',
+          fail: (err) => {
+            console.error('跳转个人首页失败:', err);
+            wx.redirectTo({ url: '/pages/common/login' });
+          }
+        });
       } else if (role === 'enterprise') {
-        wx.switchTab({ url: '/pages/enterprise/index' });
+        wx.navigateTo({
+          url: '/pages/enterprise/index',
+          fail: (err) => {
+            console.error('跳转企业首页失败:', err);
+            wx.redirectTo({ url: '/pages/common/login' });
+          }
+        });
       } else {
-        wx.navigateTo({ url: '/pages/common/login' });
+        wx.redirectTo({ url: '/pages/common/login' });
       }
     } else {
-      wx.navigateTo({ url: '/pages/common/login' });
+      wx.redirectTo({ url: '/pages/common/login' });
     }
   },
 
