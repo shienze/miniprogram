@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "招聘筛选"
+  "usingComponents": {},
+  "navigationBarTitleText": "简历筛选",
+  "navigationBarBackgroundColor": "#4A90E2",
+  "backgroundColor": "#FFFFFF",
+  "enablePullDownRefresh": true
 }

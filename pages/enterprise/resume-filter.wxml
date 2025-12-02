@@ -1,20 +1,45 @@
-<!--pages/enterprise/resume-filter.wxml-->
+<!-- pages/enterprise/resume-filter.wxml -->
 <view class="container">
-  <view class="filter-bar" style="position: relative; left: 0rpx; top: 179rpx">
-    <picker bindchange="changeSchool" range="{{schoolOptions}}" style="position: relative; left: 0rpx; top: 99rpx">
-      <view>学校: {{schoolOptions[schoolIndex]}}</view>
-    </picker>
-    <picker bindchange="changeMajor" range="{{majorOptions}}" style="position: relative; left: 0rpx; top: 99rpx">
-      <view style="position: relative; left: 22rpx; top: 1rpx">专业: {{majorOptions[majorIndex]}}</view>
-    </picker>
-    <button bindtap="applyFilter" style="position: relative; left: 38rpx; top: 77rpx">筛选</button>
-  </view>
-  
-  <scroll-view class="resume-list" scroll-y="true" style="position: relative; left: 0rpx; top: 245rpx">
-    <view class="resume-item" wx:for="{{resumes}}" wx:key="id" bindtap="toResumeDetail" data-id="{{item.id}}">
-      <text class="name">{{item.name}}</text>
-      <text class="info">{{item.school}} · {{item.major}}</text>
-      <text class="match">匹配度: {{item.match}}%</text>
+  <view class="filters">
+    <view class="filter-item">
+      <input placeholder="筛选 - 学校" value="{{schoolKeyword}}" bindinput="onSchoolInput" />
+      <button wx:if="{{schoolKeyword}}" bindtap="clearSchool" class="clear-btn">清除</button>
+      <view class="suggest-list" wx:if="{{showSchoolList}}">
+        <block wx:for="{{filteredSchools}}" wx:key="{{index}}">
+          <view class="suggest-item" data-school="{{item}}" bindtap="selectSchoolFromList">{{item}}</view>
+        </block>
+      </view>
     </view>
+
+    <view class="filter-item">
+      <input placeholder="筛选 - 专业" value="{{majorKeyword}}" bindinput="onMajorInput" />
+      <button wx:if="{{majorKeyword}}" bindtap="clearMajor" class="clear-btn">清除</button>
+      <view class="suggest-list" wx:if="{{showMajorList}}">
+        <block wx:for="{{filteredMajors}}" wx:key="{{index}}">
+          <view class="suggest-item" data-major="{{item}}" bindtap="selectMajorFromList">{{item}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="list" scroll-y="true" style="height: calc(100vh - 140px);">
+    <block wx:for="{{filteredApplications}}" wx:key="_id">
+      <view class="card">
+        <view class="card-left">
+          <text class="job-title">{{item.jobTitle}}</text>
+          <text class="applicant">姓名：{{item.userInfo.name}}</text>
+          <text class="school">学校：{{item.userInfo.school}}</text>
+          <text class="major">专业：{{item.userInfo.majorCategory}} - {{item.userInfo.majorName}}</text>
+         
+        </view>
+        <view class="card-right">
+          <button bindtap="viewResume" data-id="{{item._id}}" class="view-btn">查看简历</button>
+          <button bindtap="rejectApplication" data-id="{{item._id}}" data-status="{{item._displayStatus}}" class="{{item._displayStatus === '已拒绝' ? 'rejected-btn' : 'reject-btn'}}">
+            {{item._displayStatus === '已拒绝' ? '已拒绝' : '拒绝'}}
+          </button>
+        </view>
+      </view>
+    </block>
+    <view wx:if="{{filteredApplications.length === 0}}" class="empty">暂无符合条件的简历</view>
   </scroll-view>
 </view>
