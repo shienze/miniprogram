@@ -11,6 +11,7 @@ Page({
     const id = options.id;
     if (id) {
       this.loadJobDetail(id);
+      this.checkApplied(id);
     } else {
       wx.showToast({ title: '缺少职位ID', icon: 'none' });
       this.setData({ loading: false });
@@ -51,6 +52,65 @@ Page({
         this.setData({ loading: false });
       }
     });
+  },
+  
+  checkApplied: async function (jobId) {
+    try {
+      const res = await wx.cloud.callFunction({
+        name: 'checkApplied',
+        data: { jobId }
+      });
+      if (res.result.success) {
+        this.setData({ applied: res.result.applied });
+      }
+    } catch (err) {
+      console.error('检查投递状态失败:', err);
+    }
+  },
+
+  applyJob: async function () {
+    if (this.data.applied) {
+      wx.showToast({ title: '已投递', icon: 'none' });
+      return;
+    }
+
+    wx.showLoading({ title: '投递中' });
+
+    try {
+      // 检查是否有简历
+      const resumeRes = await wx.cloud.callFunction({ name: 'getResume' });
+      const resume = resumeRes.result;
+      if (!resume || (!resume.resumeFile && !resume.education && !resume.workExperience && !resume.certificates && !resume.skills)) {
+        wx.showModal({
+          title: '提示',
+          content: '请先完善简历信息',
+          success: (res) => {
+            if (res.confirm) {
+              wx.navigateTo({ url: '/pages/user/resume-manage' });
+            }
+          }
+        });
+        return;
+      }
+
+      // 投递
+      const applyRes = await wx.cloud.callFunction({
+        name: 'applyJob',
+        data: { jobId: this.data.job._id }
+      });
+
+      if (applyRes.result.success) {
+        wx.showToast({ title: '投递成功' });
+        this.setData({ applied: true });
+      } else {
+        wx.showToast({ title: applyRes.result.message || '投递失败', icon: 'none' });
+      }
+    } catch (err) {
+      console.error('投递失败:', err);
+      wx.showToast({ title: '网络错误，请重试', icon: 'none' });
+    } finally {
+      wx.hideLoading();
+    }
   },
 
   startChat: function () {
