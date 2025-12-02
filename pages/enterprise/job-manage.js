@@ -1,7 +1,7 @@
-// pages/enterprise/job-manage.js
 Page({
   data: {
-    jobs: []
+    jobs: [],
+    loading: false
   },
 
   onLoad: function () {
@@ -9,13 +9,44 @@ Page({
   },
 
   onShow: function () {
-    this.loadJobs(); // 返回刷新
+    this.loadJobs(); 
   },
 
   loadJobs: function () {
-    // 模拟从storage加载
-    const storedJobs = wx.getStorageSync('enterpriseJobs') || [];
-    this.setData({ jobs: storedJobs });
+    this.setData({ loading: true });
+    wx.cloud.callFunction({
+      name: 'getEnterpriseJobs',
+      success: res => {
+        console.log('云函数返回数据:', res);
+        const result = res.result;
+        console.log('result对象:', result);
+        console.log('jobs数组:', result.jobs);
+        console.log('success:', result.success);
+        
+        if (result.success) {
+          console.log('数据条数:', result.jobs.length);
+          this.setData({ 
+            jobs: result.jobs 
+          });
+        } else {
+          wx.showToast({
+            title: result.msg || '获取数据失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        console.error('云函数调用失败:', err);
+        wx.showToast({
+          title: '加载失败: ' + err.errMsg,
+          icon: 'none'
+        });
+      },
+      complete: () => {
+        console.log('当前jobs数据:', this.data.jobs);
+        this.setData({ loading: false });
+      }
+    });
   },
 
   toEdit: function (e) {
@@ -30,14 +61,21 @@ Page({
       content: '确认下架？',
       success: res => {
         if (res.confirm) {
-          let jobs = this.data.jobs;
-          const index = jobs.findIndex(j => j.id === id);
-          if (index !== -1) {
-            jobs[index].status = '下架中';
-            wx.setStorageSync('enterpriseJobs', jobs);
-            this.setData({ jobs });
-            wx.showToast({ title: '下架成功' });
-          }
+          wx.cloud.callFunction({
+            name: 'takeDownJob',
+            data: { id },
+            success: res => {
+              if (res.result.success) {
+                wx.showToast({ title: '下架成功' });
+                this.loadJobs();
+              } else {
+                wx.showToast({ title: res.result.msg, icon: 'none' });
+              }
+            },
+            fail: err => {
+              wx.showToast({ title: '下架失败', icon: 'none' });
+            }
+          });
         }
       }
     });

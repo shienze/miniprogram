@@ -5,6 +5,8 @@ Page({
     authDone: false,
     nickname: '',
     avatar: '',
+    phoneNumber : '',
+    emailAddress : '',
     
     // 学生字段
     name: '',

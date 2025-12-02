@@ -1,125 +1,171 @@
-// pages/user/intern-match.js
 Page({
   data: {
-    banners: [
-      { url: '/images/intern-banner1.jpg' },
-      { url: '/images/intern-banner2.jpg' }
-    ],
+    allJobs: [],
+    filteredJobs: [],
+    displayJobs: [],
     searchKeyword: '',
-    durationOptions: ['全部', '1-3个月', '3-6个月', '6个月以上'],
-    durationIndex: 0,
-    locationOptions: ['全部', '北京', '上海', '深圳', '杭州'],
+    locationOptions: ['全部', '西安市', '铜川市', '宝鸡市', '咸阳市', '渭南市',
+      '延安市', '汉中市', '榆林市', '安康市', '商洛市'],
     locationIndex: 0,
-    professionalOptions: ['全部', '计算机', '会计', '工商管理', '电子工程'],
-    professionalIndex: 0,
-    interns: [],
+    majorCategoryOptions: ['全部', '智能制造与高端装备类', '新能源汽车与智能网联类',
+      '电子信息与信息技术类', '建筑工程与土木工程类', '现代服务业技术类'],
+    majorCategoryIndex: 0,
     page: 1,
+    pageSize: 10,
+    hasMore: true,
     loadingMore: false
   },
 
-  onLoad: function () {
-    this.loadInterns();
+  onLoad() {
+    this.loadAllJobs()
   },
 
-  onPullDownRefresh: function () {
-    this.setData({ page: 1, interns: [] });
-    this.loadInterns();
-    wx.stopPullDownRefresh();
+  loadAllJobs() {
+    wx.showLoading({ title: '加载中...' })
+
+    wx.cloud.callFunction({
+      name: 'getInternshipJobs',
+      success: res => {
+        console.log("【云函数返回】", res)
+
+        if (!res || !res.result) {
+          wx.showToast({ title: '未收到后端数据', icon: 'none' })
+          return
+        }
+
+        const result = res.result
+
+        if (!result.success) {
+          wx.showToast({ title: result.msg || '加载失败', icon: 'none' })
+          return
+        }
+
+        const jobs = result.jobs || []
+        console.log("【加载到岗位数量】", jobs.length)
+
+        this.setData({
+          allJobs: jobs,
+          filteredJobs: jobs,
+          displayJobs: jobs.slice(0, this.data.pageSize),
+          page: 2,
+          hasMore: jobs.length > this.data.pageSize
+        })
+
+        this.applyLocalFilter()
+      },
+
+      fail: err => {
+        console.error("【云函数报错】", err)
+        wx.showToast({ title: '云函数调用失败', icon: 'none' })
+      },
+
+      complete: () => {
+        wx.hideLoading()
+      }
+    })
   },
 
-  inputSearch: function (e) {
-    this.setData({ searchKeyword: e.detail.value });
-  },
+  applyLocalFilter() {
+    const {
+      allJobs,
+      searchKeyword,
+      locationIndex,
+      locationOptions,
+      majorCategoryIndex,
+      majorCategoryOptions,
+      page,
+      pageSize
+    } = this.data
 
-  doSearch: function () {
-    this.setData({ page: 1, interns: [] });
-    this.loadInterns();
-  },
+    let list = [...allJobs]
 
-  changeDuration: function (e) {
-    this.setData({ durationIndex: e.detail.value });
-  },
-
-  changeLocation: function (e) {
-    this.setData({ locationIndex: e.detail.value });
-  },
-
-  changeProfessional: function (e) {
-    this.setData({ professionalIndex: e.detail.value });
-  },
-
-  applyFilter: function () {
-    this.setData({ page: 1, interns: [] });
-    this.loadInterns();
-  },
-
-  loadInterns: function () {
-    this.setData({ loadingMore: true });
-    
-    // 直接使用模拟数据和本地存储，不调用API
-    // 首先尝试从本地存储获取数据
-    let storedInterns = wx.getStorageSync('interns') || [];
-    
-    // 如果本地存储没有数据，使用初始模拟数据
-    if (storedInterns.length === 0) {
-      storedInterns = [
-        { id: 1, title: '前端开发实习', company: '腾讯', duration: '3-6个月', location: '深圳', tags: ['React', 'JavaScript'], professional: '计算机', salary: '3000-5000', description: '负责前端开发工作', requirements: '熟悉React框架' },
-        { id: 2, title: '会计实习', company: '阿里', duration: '1-3个月', location: '杭州', tags: ['财务', 'Excel'], professional: '会计', salary: '2500-4000', description: '协助财务部门日常工作', requirements: '会计专业优先' },
-        { id: 3, title: 'Java开发实习', company: '百度', duration: '3-6个月', location: '北京', tags: ['Java', 'Spring'], professional: '计算机', salary: '3500-5500', description: '后端开发实习岗位', requirements: 'Java基础扎实' },
-        { id: 4, title: '市场营销实习', company: '字节跳动', duration: '2-4个月', location: '上海', tags: ['策划', '推广'], professional: '市场营销', salary: '2800-4500', description: '市场推广活动策划', requirements: '沟通能力强' }
-      ];
-      wx.setStorageSync('interns', storedInterns);
+    // 城市
+    const selectedLocation = locationOptions[locationIndex]
+    if (selectedLocation !== '全部') {
+      list = list.filter(job => job.location?.city === selectedLocation)
     }
-    
-    let mockInterns = storedInterns;
-    
-    // 搜索过滤
-    if (this.data.searchKeyword) {
-      mockInterns = mockInterns.filter(i => 
-        i.title.includes(this.data.searchKeyword) || 
-        i.company.includes(this.data.searchKeyword)
-      );
+
+    // 专业类别
+    const selectedMajor = majorCategoryOptions[majorCategoryIndex]
+    if (selectedMajor !== '全部') {
+      list = list.filter(job => job.majorRequirements?.category === selectedMajor)
     }
-    
-    // 时长过滤
-    if (this.data.durationIndex !== 0) {
-      mockInterns = mockInterns.filter(i => i.duration === this.data.durationOptions[this.data.durationIndex]);
+
+    // 搜索
+    if (searchKeyword.trim()) {
+      const keyword = searchKeyword.toLowerCase()
+      list = list.filter(job =>
+        (job.title?.toLowerCase().includes(keyword)) ||
+        (job.enterpriseInfo?.name?.toLowerCase().includes(keyword)) ||
+        (job.description?.toLowerCase().includes(keyword))
+      )
     }
+
+    // 排序
+    list.sort((a, b) => {
+      // 优先按 score（若不存在 score，视为 0）
+      const sa = typeof a.score === 'number' ? a.score : 0;
+      const sb = typeof b.score === 'number' ? b.score : 0;
+      if (sb !== sa) return sb - sa; 
     
-    // 地点过滤
-    if (this.data.locationIndex !== 0) {
-      mockInterns = mockInterns.filter(i => i.location === this.data.locationOptions[this.data.locationIndex]);
-    }
-    
-    // 专业过滤
-    if (this.data.professionalIndex !== 0) {
-      const professional = this.data.professionalOptions[this.data.professionalIndex];
-      mockInterns = mockInterns.filter(i => i.professional === professional);
-    }
-    
-    // 设置数据
-    this.setData({
-      interns: mockInterns,
-      loadingMore: false
+      // score 相等时按创建时间倒序（新的靠前）
+      const ta = a.createdAt ? new Date(a.createdAt) : 0;
+      const tb = b.createdAt ? new Date(b.createdAt) : 0;
+      return tb - ta;
     });
-    
-    console.log('实习岗位数据加载成功:', mockInterns);
-  },
-  
-  loadMore: function () {
-    if (!this.data.loadingMore) {
-      this.loadInterns();
-    }
+
+    this.setData({
+      filteredJobs: list,
+      displayJobs: list.slice(0, page * pageSize),
+      hasMore: list.length > page * pageSize
+    })
   },
 
-  toInternDetail: function (e) {
-    const id = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: '/pages/user/intern-detail?id=' + id }); // 新建详情页，类似职位详情
+  doSearch() {
+    this.setData({ page: 1 })
+    this.applyLocalFilter()
   },
 
-  applyIntern: function (e) {
-    const id = e.currentTarget.dataset.id;
-    wx.showToast({ title: '投递成功 (模拟)' });
-    // 实际API
-  }
-});
+  applyFilter() {
+    this.setData({ page: 1 })
+    this.applyLocalFilter()
+  },
+
+  clearFilters() {
+    this.setData({
+      searchKeyword: '',
+      locationIndex: 0,
+      majorCategoryIndex: 0,
+      page: 1
+    })
+    this.applyLocalFilter()
+  },
+
+  loadMore() {
+    if (!this.data.hasMore) return
+    this.setData({ page: this.data.page + 1 })
+    this.applyLocalFilter()
+  },
+
+  toJobDetail(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({ url: `/pages/user/job-detail?id=${id}` })
+  },
+  changeMajorCategory(e) {
+    this.setData({
+      majorCategoryIndex: e.detail.value
+    });
+  },
+
+  changeLocation(e) {
+    this.setData({
+      locationIndex: e.detail.value
+    });
+  },
+
+  inputSearch(e) {
+    this.setData({
+      searchKeyword: e.detail.value
+    });
+  }  
+})

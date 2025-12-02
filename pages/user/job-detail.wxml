@@ -3,11 +3,7 @@
     <text class="title">{{job.title}}</text>
     <text class="status">{{job.status}}</text>
     <view class="enterprise-info">
-      <image class="avatar" src="{{job.enterpriseInfo.avatar || '/images/default-avatar.png'}}" mode="aspectFill" />
-      <text class="company-name">{{job.enterpriseInfo.name}}</text>
-      <text class="contact">联系人: {{job.enterpriseInfo.contact}}</text>
-      <text class="email">邮箱: {{job.enterpriseInfo.email}}</text>
-      <text class="nickname">昵称: {{job.enterpriseInfo.nickname}}</text>
+      <text class="company-name">企业：{{job.enterpriseInfo.company}}</text>
     </view>
     <text class="job-type">职位类型: {{job.jobType}}</text>
     <text class="salary">薪资: {{job.salary}}</text>

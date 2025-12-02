@@ -1,34 +1,78 @@
 <!--pages/user/profile-edit.wxml-->
-<view class="container">
-  <form bindsubmit="saveProfile">
-    <view class="section">
-      <text class="section-title" style="position: relative; left: 0rpx; top: 185rpx">姓名</text>
-      <input style="position: relative; left: 0rpx; top: 229rpx" class="input" name="name" placeholder="请输入姓名" value="{{user.name}}" />
+<view class="container" bindtap="hideAllLists">
+  <view class="section">
+    <view class="form-group">
+      <text class="label">昵称</text>
+      <input class="input" value="{{nickname}}" bindinput="inputNickname" placeholder="请输入昵称" />
     </view>
     
-    <view class="section">
-      <text class="section-title" style="position: relative; left: 0rpx; top: 225rpx">学校</text>
-      <input style="position: relative; left: 0rpx; top: 270rpx" class="input" name="school" placeholder="请输入学校" value="{{user.school}}" />
+    <view class="form-group">
+      <text class="label">联系电话</text>
+      <input class="input" value="{{phoneNumber}}" bindinput="inputPhoneNumber" placeholder="请输入手机号码（可选）" type="number" maxlength="11" />
     </view>
     
-    <view class="section">
-      <text class="section-title" style="position: relative; left: 0rpx; top: 262rpx">专业</text>
-      <input style="position: relative; left: 0rpx; top: 300rpx" class="input" name="major" placeholder="请输入专业" value="{{user.major}}" />
+    <view class="form-group">
+      <text class="label">邮箱地址</text>
+      <input class="input" value="{{emailAddress}}" bindinput="inputEmailAddress" placeholder="请输入邮箱（可选）" />
     </view>
     
-    <view class="section">
-      <text class="section-title" style="position: relative; left: 0rpx; top: 287rpx">年级</text>
-      <input style="position: relative; left: 0rpx; top: 325rpx" class="input" name="grade" placeholder="如大四" value="{{user.grade}}" />
+    <view class="form-group">
+      <text class="label">姓名</text>
+      <input class="input" value="{{name}}" bindinput="inputName" placeholder="请输入姓名" />
     </view>
     
-    <view class="section">
-      <text class="section-title" style="position: relative; left: 0rpx; top: 299rpx">上传头像</text>
-      <button class="upload-btn" bindtap="uploadAvatar" style="position: relative; left: 0rpx; top: 345rpx">选择图片</button>
-      <image wx:if="{{user.avatar}}" class="preview" src="{{user.avatar}}" mode="aspectFill" />
+    <view class="form-group">
+      <text class="label">院校</text>
+      <view class="input-wrapper">
+        <input class="input" value="{{schoolKeyword}}" bindinput="onSchoolSearch" placeholder="搜索院校" />
+        <view wx:if="{{school}}" class="clear-btn" bindtap="clearSchool">×</view>
+      </view>
+      <view wx:if="{{showSchoolList}}" class="dropdown-list">
+        <view wx:for="{{filteredSchools}}" wx:key="index" class="dropdown-item" bindtap="selectSchool" data-school="{{item}}">
+          {{item}}
+        </view>
+        <view wx:if="{{filteredSchools.length === 0}}" class="no-result">未找到相关院校</view>
+      </view>
     </view>
     
-    <button class="submit-btn" formType="submit" style="position: relative; left: -1rpx; top: 325rpx">保存</button>
-  </form>
+    <view class="form-group">
+      <text class="label">专业</text>
+      <view class="sub-group">
+        <text class="sub-label">专业大类</text>
+        <view class="input-wrapper">
+          <input class="input" value="{{majorCategoryKeyword}}" bindinput="onMajorCategorySearch" placeholder="搜索专业大类" />
+          <view wx:if="{{majorCategory}}" class="clear-btn" bindtap="clearMajorCategory">×</view>
+        </view>
+        <view wx:if="{{showMajorCategoryList}}" class="dropdown-list">
+          <view wx:for="{{filteredMajorCategories}}" wx:key="index" class="dropdown-item" bindtap="selectMajorCategory" data-category="{{item}}">
+            {{item}}
+          </view>
+          <view wx:if="{{filteredMajorCategories.length === 0}}" class="no-result">未找到相关专业大类</view>
+        </view>
+      </view>
+      
+      <view class="sub-group">
+        <text class="sub-label">专业名称</text>
+        <view class="input-wrapper">
+          <input class="input" value="{{majorNameKeyword}}" bindinput="onMajorNameSearch" placeholder="搜索专业名称" disabled="{{!majorCategory}}" />
+          <view wx:if="{{majorName}}" class="clear-btn" bindtap="clearMajorName">×</view>
+        </view>
+        <view wx:if="{{showMajorNameList}}" class="dropdown-list">
+          <view wx:for="{{filteredMajorNames}}" wx:key="index" class="dropdown-item" bindtap="selectMajorName" data-major="{{item}}">
+            {{item}}
+          </view>
+          <view wx:if="{{filteredMajorNames.length === 0}}" class="no-result">未找到相关专业</view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="form-group">
+      <text class="label">年级</text>
+      <picker bindchange="changeGrade" value="{{gradeIndex}}" range="{{gradeOptions}}">
+        <view class="picker-value">{{gradeOptions[gradeIndex]}}</view>
+      </picker>
+    </view>
+  </view>
   
-  <loading hidden="{{!loading}}">保存中...</loading>
+  <button class="submit-btn" bindtap="saveProfile" disabled="{{loading}}">{{loading ? '保存中...' : '保存'}}</button>
 </view>

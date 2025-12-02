@@ -10,18 +10,33 @@ exports.main = async (event, context) => {
     if (!jobRes.data) {
       return { success: false, msg: '职位不存在' }
     }
-    const enterpriseRes = await db.collection('users').where({ openid: jobRes.data.enterpriseId, role: 'enterprise' }).get()
-    const enterpriseInfo = enterpriseRes.data[0] || {}
-    const job = {
-      ...jobRes.data,
-      enterpriseInfo: {
-        name: enterpriseInfo.company || '', 
-        avatar: enterpriseInfo.avatar || '',
-        contact: enterpriseInfo.contact || '',
-        email: enterpriseInfo.email || '',
-        nickname: enterpriseInfo.nickname || ''
+
+    const job = jobRes.data
+
+    if (job.enterpriseId) {
+      const enterpriseRes = await db.collection('enterprise_users')
+        .where({
+          openid: job.enterpriseId  
+        })
+        .get()
+      
+      if (enterpriseRes.data && enterpriseRes.data.length > 0) {
+        const enterprise = enterpriseRes.data[0]
+        // 只返回需要的企业信息字段
+        job.enterpriseInfo = {
+          avatar: enterprise.avatar,
+          company: enterprise.company,
+          contact: enterprise.contact,
+          email: enterprise.email,
+          nickname: enterprise.nickname
+        }
+      } else {
+        job.enterpriseInfo = {}
       }
+    } else {
+      job.enterpriseInfo = {}
     }
+
     return { success: true, job }
   } catch (err) {
     return { success: false, msg: err.message }

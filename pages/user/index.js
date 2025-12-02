@@ -1,10 +1,5 @@
 Page({
   data: {
-    banners: [ // 模拟banner
-      { url: '/images/banner1.png' },
-      { url: '/images/banner2.png' },
-      { url: '/images/banner3.png' }
-    ],
     searchKeyword: '',
     jobs: [],
     page: 1,
@@ -69,7 +64,12 @@ Page({
   },
 
   toJobDetail: function (e) {
-    const id = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: '/pages/user/job-detail?id=' + id });
+    
+    const index = e.currentTarget.dataset.index
+    const currentJob = this.data.jobs[index]
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({ 
+      url: '/pages/user/job-detail?id=' + id 
+    })
   }
 });

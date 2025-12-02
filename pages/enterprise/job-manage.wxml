@@ -1,15 +1,57 @@
-<!--pages/enterprise/job-manage.wxml-->
 <view class="container">
   <view class="job-list">
-    <view class="job-item" wx:for="{{jobs}}" wx:key="id">
-      <text class="title">{{item.title}}</text>
-      <text class="status {{item.status === '已发布' ? 'active' : 'inactive'}}">{{item.status}}</text>
-      <text class="info">薪资: {{item.salary}} | 地点: {{item.location}}</text>
-      <view class="actions">
-        <button class="edit-btn" bindtap="toEdit" data-id="{{item.id}}">编辑</button>
-        <button class="down-btn" bindtap="takeDown" data-id="{{item.id}}">下架</button>
+    <!-- 加载状态 -->
+    <view wx:if="{{loading}}" class="loading">
+      <text>加载中...</text>
+    </view>
+    
+    <view wx:else>
+      <!-- 职位列表 -->
+      <view class="job-item" wx:for="{{jobs}}" wx:key="_id">
+        <view class="header">
+          <text class="title">{{item.title}}</text>
+          <text class="status {{item.status === '已发布' ? 'active' : 'inactive'}}">
+            {{item.status}}
+          </text>
+        </view>
+        
+        <!-- 薪资和工作类型 -->
+        <view class="basic-info">
+          <text class="salary">{{item.salary}}</text>
+          <text class="job-type">{{item.jobType}}</text>
+        </view>
+        
+        <!-- 工作地点 -->
+        <view class="location">
+          <text class="location-icon"></text>
+          <text>{{item.location.province}}{{item.location.city}}{{item.location.district ? item.location.district : ''}}</text>
+        </view>
+        
+        <!-- 专业要求 -->
+        <view wx:if="{{item.majorRequirements}}" class="major">
+          <text class="major-icon"></text>
+          <text>{{item.majorRequirements.category}} - {{item.majorRequirements.name}}</text>
+        </view>
+        
+        <!-- 证书要求 -->
+        <view wx:if="{{item.certificates && item.certificates.length > 0}}" class="certificates">
+          <text class="cert-icon"></text>
+          <text>{{item.certificates.join('、')}}</text>
+        </view>
+        
+    
+
+        <view class="actions">
+          <button class="edit-btn" bindtap="toEdit" data-id="{{item._id}}">编辑</button>
+          <button class="down-btn" bindtap="takeDown" data-id="{{item._id}}" wx:if="{{item.status === '已发布'}}">下架</button>
+          <button class="repost-btn" bindtap="repostJob" data-id="{{item._id}}" wx:if="{{item.status !== '已发布'}}">已下架</button>
+        </view>
+      </view>
+      
+      <!-- 空状态 -->
+      <view wx:if="{{!loading && jobs.length === 0}}" class="empty">
+        <text class="empty-text">暂无职位信息</text>
       </view>
     </view>
-    <view wx:if="{{jobs.length === 0}}" class="empty">暂无职位</view>
   </view>
 </view>

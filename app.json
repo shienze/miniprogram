@@ -15,7 +15,6 @@
     "pages/user/job-search",
     "pages/user/job-detail",
     "pages/user/resume-manage",
-    "pages/user/resume-preview",
     "pages/user/apply-track",
     "pages/user/profile-edit",
     "pages/user/skill-growth",

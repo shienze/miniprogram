@@ -1,70 +1,68 @@
-/* pages/user/resume-manage.wxss */
 .container {
-  background: linear-gradient(to bottom, #4A90E2, #FFFFFF);
-  padding: 40rpx;
+  padding: 30px 20px; /* 增加 padding */
+  background-color: #f8f8f8;
   min-height: 100vh;
 }
 
+.upload-btn {
+  background-color: #07c160;
+  color: #ffffff;
+  font-size: 16px;
+  height: 48px;
+  line-height: 48px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.file-info {
+  font-size: 14px;
+  color: #07c160; /* 绿链接色 */
+  margin-bottom: 30px; /* 增加间距 */
+  display: block;
+  text-decoration: underline; /* 像链接 */
+}
+
 .section {
-  margin-bottom: 40rpx;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px; /* 增加内部 padding */
+  margin-bottom: 30px; /* 增加底部间距 */
 }
 
-.section-title {
-  font-size: 32rpx;
+.tip {
+  font-size: 14px;
+  color: #999999;
+  margin-bottom: 20px; /* 增加间距 */
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 30px; /* 增加组间距 */
+}
+
+.label {
+  font-size: 14px;
   color: #333333;
-  font-weight: bold;
-  margin-bottom: 20rpx;
-}
-
-.input, .textarea {
-  border: 1rpx solid #DDDDDD;
-  border-radius: 10rpx;
-  padding: 20rpx;
-  margin-bottom: 20rpx;
-  font-size: 28rpx;
-  background: #FFFFFF;
+  margin-bottom: 10px; /* 增加标签间距 */
+  display: block;
 }
 
 .textarea {
-  height: 200rpx;
-}
-
-.upload-section {
-  margin-bottom: 40rpx;
-}
-
-.upload-btn {
-  background: #4A90E2;
-  color: #FFFFFF;
-  border-radius: 10rpx;
-  font-size: 28rpx;
-}
-
-.upload-status {
-  font-size: 24rpx;
-  color: #666666;
-  margin-top: 10rpx;
-}
-
-.action-btn {
-  background: #EAF4FF;
-  color: #4A90E2;
-  border-radius: 50rpx;
-  font-size: 32rpx;
-  margin-bottom: 20rpx;
+  width: 100%;
+  height: 150px; /* 增加高度，更宽敞 */
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  padding: 10px; /* 增加内部 padding */
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
 .submit-btn {
-  background: #4A90E2;
-  color: #FFFFFF;
-  border-radius: 50rpx;
-  font-size: 32rpx;
-  box-shadow: 0 4rpx 8rpx rgba(74, 144, 226, 0.3);
-}
-
-.suggestion {
-  background: #F0F0F0;
-  padding: 20rpx;
-  border-radius: 10rpx;
-  margin-top: 40rpx;
+  background-color: #07c160;
+  color: #ffffff;
+  font-size: 16px;
+  height: 48px;
+  line-height: 48px;
+  border-radius: 4px;
+  margin-top: 30px; /* 增加顶部间距 */
 }

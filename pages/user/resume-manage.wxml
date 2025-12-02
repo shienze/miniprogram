@@ -1,42 +1,30 @@
-<!--pages/user/resume-manage.wxml-->
 <view class="container">
-  <form bindsubmit="saveResume">
-    <view class="section">
-      <text class="section-title">基本信息</text>
-      <input class="input" name="name" placeholder="姓名" value="{{resume.name}}" />
-      <input class="input" name="phone" placeholder="手机号" value="{{resume.phone}}" />
-      <input class="input" name="email" placeholder="邮箱" value="{{resume.email}}" />
+  <button class="upload-btn" bindtap="uploadResume">一键上传简历（Word/PDF）</button>
+  <view wx:if="{{fileName}}" class="file-info" bindtap="previewResume">已上传: {{fileName}}（点击预览）</view>
+
+  <view class="section">
+    <text class="tip">方便HR快速预览经历</text>
+    
+    <view class="form-group">
+      <text class="label">教育经历</text>
+      <textarea class="textarea" value="{{education}}" bindinput="inputEducation" placeholder="请输入教育经历（可选）" />
     </view>
     
-    <view class="section">
-      <text class="section-title">教育经历</text>
-      <textarea class="textarea" name="education" placeholder="学校、专业、时间等" value="{{resume.education}}" />
+    <view class="form-group">
+      <text class="label">工作经验</text>
+      <textarea class="textarea" value="{{workExperience}}" bindinput="inputWorkExperience" placeholder="请输入工作经验（可选）" />
     </view>
     
-    <view class="section">
-      <text class="section-title">工作经验</text>
-      <textarea class="textarea" name="experience" placeholder="公司、职位、职责等" value="{{resume.experience}}" />
+    <view class="form-group">
+      <text class="label">获得证书</text>
+      <textarea class="textarea" value="{{certificates}}" bindinput="inputCertificates" placeholder="请输入获得证书（可选）" />
     </view>
     
-    <view class="section">
-      <text class="section-title">证书</text>
-      <textarea class="textarea" name="skills" placeholder="证书列表" value="{{resume.skills}}" />
+    <view class="form-group">
+      <text class="label">其他技能特长</text>
+      <textarea class="textarea" value="{{skills}}" bindinput="inputSkills" placeholder="请输入其他技能特长（可选）" />
     </view>
-    
-    <view class="upload-section">
-      <text class="section-title">上传附件（PDF/Word）</text>
-      <button class="upload-btn" bindtap="uploadAttachment">选择文件</button>
-      <text wx:if="{{attachmentPath}}" class="upload-status">已选择：{{attachmentName}}</text>
-    </view>
-    
-    <button class="action-btn" bindtap="aiOptimize">AI优化</button>
-    <button class="submit-btn" formType="submit">保存并预览</button>
-  </form>
-  
-  <view wx:if="{{aiSuggestion}}" class="suggestion">
-    <text class="section-title">AI优化建议</text>
-    <text>{{aiSuggestion}}</text>
   </view>
   
-  <loading hidden="{{!loading}}">保存中...</loading>
+  <button class="submit-btn" bindtap="saveResume" disabled="{{loading}}">{{loading ? '保存中...' : '保存'}}</button>
 </view>

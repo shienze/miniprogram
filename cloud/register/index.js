@@ -9,10 +9,6 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   const openid = wxContext.OPENID
   
-  console.log('=== 注册开始 ===')
-  console.log('openid:', openid)
-  console.log('注册数据:', event)
-
   try {
     const collectionName = event.role === 'user' ? 'users' : 'enterprise_users'
     
@@ -39,6 +35,8 @@ exports.main = async (event, context) => {
       }
       
       userData.grade = event.grade || ''
+      userData.phoneNumber = ''
+      userData.emailAddress = ''
 
       console.log('学生专业信息:', {
         majorCategory: event.majorCategory,

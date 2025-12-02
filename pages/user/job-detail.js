@@ -26,7 +26,7 @@ Page({
         const result = res.result;
         if (result.success) {
           let job = result.job;
-
+      
           job.certificates = job.certificates || [];
           job.majorRequirements = job.majorRequirements || { category: '', name: '' };
           job.location = job.location || { province: '', city: '', district: '' };
