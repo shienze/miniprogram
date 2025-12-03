@@ -1,20 +1,73 @@
-<!--pages/enterprise/resume-detail.wxml-->
-<view class="container" style="position: relative; left: 46rpx; top: 233rpx; width: 660rpx; display: flex; box-sizing: border-box">
-  <view class="resume-header">
-    <text class="name">{{resume.name}}</text>
-    <text class="info">{{resume.school}} · {{resume.major}}</text>
+<!-- pages/enterprise/resume-detail.wxml -->
+<view class="page">
+  <!-- 顶部返回 -->
+  <view class="topbar">
+    <button class="back-btn" bindtap="goBack">返回</button>
+    <text class="title">简历详情</text>
   </view>
-  
-  <rich-text nodes="{{resume.content}}" />
-  
-  <view class="attachment" wx:if="{{resume.attachment}}">
-    <text>附件: {{resume.attachmentName}}</text>
-    <button bindtap="downloadAttachment">下载</button>
-  </view>
-  
-  <view class="action-bar">
-    <button class="action-btn" bindtap="inviteInterview" style="position: relative; left: 0rpx; top: 0rpx; width: 200rpx; display: block; box-sizing: border-box">邀请面试</button>
-    <button class="action-btn" bindtap="reject" style="width: 200rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">拒绝</button>
-    <button class="action-btn" bindtap="startChat" style="width: 200rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">聊天</button>
+
+  <scroll-view class="content" scroll-y="true">
+    <view class="card basic">
+      <view class="row name-row">
+        <text class="name">{{userInfo.name || application.userInfo.name || '匿名'}}</text>
+        <text class="job-title">{{jobTitle}}</text>
+      </view>
+      <view class="meta">
+        <text>专业：{{userInfo.majorCategory ? (userInfo.majorCategory + ' - ' + (userInfo.majorName || '')) : (userInfo.major || '')}}</text>
+      </view>
+      <view class="meta">
+        <text>学校：{{userInfo.school || ''}}</text>
+        <text>年级：{{userInfo.grade || ''}}</text>
+      </view>
+      <view class="meta">
+        <text>电话：{{userInfo.phoneNumber || userInfo.phone || '未填写'}}</text>
+        <text>邮箱：{{userInfo.emailAddress || userInfo.email || '未填写'}}</text>
+      </view>
+    </view>
+
+    <view class="card resume-file">
+      <view class="file-row">
+        <text class="subt">简历文件</text>
+        <button bindtap="previewResumeFile">预览/下载</button>
+      </view>
+      <view wx:if="{{resume && (resume.resumeFile || resume.file)}}" class="file-note">
+        <text>已上传文件，可点击预览</text>
+      </view>
+      <view wx:else class="file-note">
+        <text>该用户未上传简历文件</text>
+      </view>
+    </view>
+
+    <view class="card section">
+      <text class="section-title">教育经历</text>
+      <rich-text nodes="{{resume.education || '暂无'}}"></rich-text>
+    </view>
+
+    <view class="card section">
+      <text class="section-title">工作经历</text>
+      <rich-text nodes="{{resume.workExperience || '暂无'}}"></rich-text>
+    </view>
+
+    <view class="card section">
+      <text class="section-title">技能/证书</text>
+      <view>
+        <text wx:if="{{resume.skills && resume.skills.length}}">{{resume.skills}}</text>
+        <text wx:elif="{{resume.certificates && resume.certificates.length}}">{{resume.certificates}}</text>
+        <text wx:else>暂无</text>
+      </view>
+    </view>
+
+  </scroll-view>
+
+  <!-- 底部操作栏 -->
+  <view class="footer">
+    <button class="chat-btn" bindtap="goChat">聊天</button>
+    <button
+      class="reject-btn"
+      style="background-color: {{statusButtonColor}};"
+      bindtap="rejectApplication"
+    >
+      {{application.status === '已拒绝' ? '已拒绝' : '拒绝'}}
+    </button>
   </view>
 </view>

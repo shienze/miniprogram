@@ -1,15 +1,13 @@
 // pages/enterprise/resume-filter.js
 Page({
   data: {
-    rawApplications: [], // 从云函数拉回的原始列表
-    filteredApplications: [], // 页面展示（本地筛选后的）
+    rawApplications: [], 
+    filteredApplications: [], 
     loading: false,
-    // 筛选相关
     schoolKeyword: '',
     majorKeyword: '',
     showSchoolList: false,
     showMajorList: false,
-    // 引用 register 页面里的院校与专业数据（便于联想）
     allSchools: [
       '西安交通大学','西北工业大学','西安电子科技大学','陕西师范大学','西北大学','西安理工大学','西安建筑科技大学','陕西科技大学','西安邮电大学','西安科技大学','西安工业大学','西安工程大学','西安外国语大学','西北政法大学','西安石油大学','西安财经大学','西安美术学院','西安音乐学院','西安体育学院','长安大学','陕西中医药大学','延安大学','陕西理工大学','宝鸡文理学院','咸阳师范学院','渭南师范学院','榆林学院','商洛学院','安康学院','西安医学院','西安文理学院','西安航空学院','陕西工业职业技术学院','杨凌职业技术学院','陕西国防工业职业技术学院','西安航空职业技术学院','陕西铁路工程职业技术学院','陕西职业技术学院','宝鸡职业技术学院','咸阳职业技术学院','渭南职业技术学院','延安职业技术学院','汉中职业技术学院','安康职业技术学院','商洛职业技术学院','榆林职业技术学院','西安铁路职业技术学院','西安电力高等专科学校','西安医学高等专科学校','陕西能源职业技术学院','陕西财经职业技术学院','陕西交通职业技术学院','陕西邮电职业技术学院'
     ],
@@ -28,7 +26,6 @@ Page({
     this.fetchApplications()
   },
 
-  // 拉取云端应用列表（属于该企业）
   fetchApplications() {
     this.setData({ loading: true })
     wx.showLoading({ title: '加载中...' })
@@ -38,16 +35,13 @@ Page({
       success: (res) => {
         if (res.result && res.result.success) {
           let apps = res.result.data || []
-          // 规范化：把 applyTime 变成 Date 对象，未有 applyTime 的放后面
           apps = apps.map(a => {
             return {
               ...a,
               _localApplyTime: a.applyTime ? new Date(a.applyTime) : new Date(0),
-              // 兼容状态字符串
               _displayStatus: (a.status === '投递中' || a.status === '已投递' || a.status === '投递中') ? '已投递' : (a.status || '')
             }
           })
-          // 前端再次确保排序：时间越近越前面
           apps.sort((x, y) => {
             return (y._localApplyTime || 0) - (x._localApplyTime || 0)
           })
@@ -70,7 +64,6 @@ Page({
     })
   },
 
-  // 本地筛选逻辑（不改变排序）
   applyLocalFilters() {
     const schoolKeyword = (this.data.schoolKeyword || '').trim().toLowerCase()
     const majorKeyword = (this.data.majorKeyword || '').trim().toLowerCase()
@@ -88,11 +81,9 @@ Page({
       return passSchool && passMajor
     })
 
-    // 保持与 rawApplications 的相对顺序（它已排序）
     this.setData({ filteredApplications: filtered })
   },
 
-  // 搜索输入处理（学校）
   onSchoolInput(e) {
     const v = e.detail.value
     this.setData({ schoolKeyword: v })
@@ -117,7 +108,6 @@ Page({
     this.applyLocalFilters()
   },
 
-  // 专业输入处理（模糊匹配 majorCategory 或 majorName）
   onMajorInput(e) {
     const v = e.detail.value
     this.setData({ majorKeyword: v })
@@ -125,7 +115,6 @@ Page({
       this.setData({ filteredMajors: [], showMajorList: false })
     } else {
       const kw = v.toLowerCase()
-      // 从 majorData 中构造候选项： "大类 - 专业"
       const candidates = []
       for (let cat in this.data.majorData) {
         const names = this.data.majorData[cat] || []
@@ -150,16 +139,14 @@ Page({
     this.applyLocalFilters()
   },
 
-  // 跳转到简历详情页（传 applicationId）
   viewResume(e) {
     const applicationId = e.currentTarget.dataset.id
     wx.navigateTo({ url: `/pages/enterprise/resume-detail?applicationId=${applicationId}` })
   },
 
-  // 拒绝操作
   rejectApplication(e) {
     const applicationId = e.currentTarget.dataset.id
-    const currentStatus = e.currentTarget.dataset.status // 页面里的_displayStatus
+    const currentStatus = e.currentTarget.dataset.status 
 
     if (!applicationId) {
       wx.showToast({ title: '缺少投递记录ID', icon: 'none' })
@@ -173,7 +160,7 @@ Page({
 
     wx.showModal({
       title: '确认',
-      content: '确认要拒绝该简历吗？此操作会将状态置为“已拒绝”。',
+      content: '确认拒绝该简历？。',
       success: (res) => {
         if (res.confirm) {
           wx.showLoading({ title: '提交中...' })
@@ -183,14 +170,12 @@ Page({
             success: (res) => {
               if (res.result && res.result.success) {
                 wx.showToast({ title: '已拒绝', icon: 'success' })
-                // 前端同步状态（本地）
                 const rawApps = this.data.rawApplications.map(a => {
                   if (a._id === applicationId) {
                     return { ...a, status: '已拒绝', _displayStatus: '已拒绝' }
                   }
                   return a
                 })
-                // 保持原排序
                 this.setData({ rawApplications: rawApps }, () => {
                   this.applyLocalFilters()
                 })
